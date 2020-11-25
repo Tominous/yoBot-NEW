@@ -8,14 +8,5 @@
     "EnableChannel" : "758680334698414081",
 
     "EmbedColor" : "YELLOW",
-    "Footer" : "https://github.com/Yochran",
-
-    "Commands" : [
-        "help",
-        "bot",
-        "userinfo",
-        "serverinfo",
-        "say",
-        "bonk"
-    ]
+    "Footer" : "https://github.com/Yochran"
 }
