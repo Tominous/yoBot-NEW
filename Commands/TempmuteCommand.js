@@ -3,6 +3,7 @@ const bot = new Discord.Client();
 const { MessageEmbed } = require("discord.js");
 
 const config = require("../config.json");
+const utils = require("../Utils/Utils.js");
 
 const footer = config.Footer;
 const embedColor = config.EmbedColor;
@@ -90,6 +91,9 @@ module.exports = {
                     setTimeout( async() => {
                         member.roles.remove(muteRole);
                     }, time * 1000);
+                    const date = new Date();
+                    const name = member.user.username;
+                    utils.logpunishment(msg, name, "Mute", rsFinal, mutedLength, date);
                 }
             }
         }
@@ -124,15 +128,13 @@ function parseTime(time) {
 }
 
 function getTimeFromMS(ms) {
-    const weeks = Math.floor(ms / (7 * 24 * 60 * 60 * 1000))
-    const weeksms = ms % (7 * 24 * 60 * 60 * 1000)
     const days = Math.floor(ms / (24 * 60 * 60 * 1000))
     const daysms = ms % (24 * 60 * 60 * 1000)
     const hours = Math.floor((daysms) / (60*60*1000))
     const hoursms = ms % (60 * 60 * 1000)
     const minutes = Math.floor((hoursms) / (60 * 1000))
     const minutesms = ms % (60 * 1000)
-    const sec = Math.floor((minutesms) / (1000))
+    const seconds = Math.floor((minutesms) / (1000))
     let time = ""
     if (days > 0) {
         let a = " days"
@@ -153,9 +155,9 @@ function getTimeFromMS(ms) {
         }
     }
     if (minutes > 0) {
-        let a = " mins"
+        let a = " minutes"
         if (minutes == 1) {
-            a = " min"
+            a = " minute"
         }
         if (time == "") {
             time = minutes + a
@@ -163,8 +165,16 @@ function getTimeFromMS(ms) {
             time = `${time} ${minutes}${a}`
         }
     }
-    if (sec > 0) {
-        time = time + sec + "s"
+    if (seconds > 0) {
+        let a = " seconds"
+        if (seconds == 1) {
+            a = " second"
+        }
+        if (time == "") {
+            time = seconds + a
+        } else {
+            time = `${time} ${seconds}${a}`
+        }
     }
     return time
 }

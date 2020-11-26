@@ -3,6 +3,7 @@ const bot = new Discord.Client();
 const { MessageEmbed } = require("discord.js");
 
 const config = require("../config.json");
+const utils = require("../Utils/Utils.js");
 
 const footer = config.Footer;
 const embedColor = config.EmbedColor;
@@ -58,6 +59,9 @@ module.exports = {
                     member.kick(rsFinal).then(() => {
                         console.log(`${member} has been kicked fron ${msg.guild.name}`);
                     });
+                    const date = new Date();
+                    const name = member.user.username;
+                    utils.logpunishment(msg, name, "Kick", rsFinal, "N/A", date);
                 }
             }
         }

@@ -3,6 +3,7 @@ const bot = new Discord.Client();
 const { MessageEmbed } = require("discord.js");
 
 const config = require("../config.json");
+const utils = require("../Utils/Utils.js");
 
 const footer = config.Footer;
 const embedColor = config.EmbedColor;
@@ -29,38 +30,49 @@ module.exports = {
             } else {
                 if (args[0] === "@everyone" || args[0] === "@here") {
                     msg.channel.send(new MessageEmbed()
-                .setTitle("**Incorrect Usage!**")
-                .setDescription("```css\n^ban <member> <reason>\n```")
-                .setFooter(footer)
-                .setColor(embedColor));
-                msg.delete(msg);
-                } else {
-                    var reason = "";
-                    for (const word in args) {
-                        reason = reason + args[word] + " ";
-                    }
-                    var rsFinal = reason.replace("" + member, "");
-                    rsFinal = rsFinal.replace("<", "");
-                    rsFinal = rsFinal.replace("@", "");
-                    rsFinal = rsFinal.replace("!", "");
-                    rsFinal = rsFinal.replace(">", "");
-                    member.send(new MessageEmbed()
-                    .setTitle("**Ban**")
-                    .setDescription(`**You have been banned from ${msg.guild.name}!**\n**You were banned for:** ${rsFinal}`)
+                    .setTitle("**Incorrect Usage!**")
+                    .setDescription("```css\n^ban <member> <reason>\n```")
                     .setFooter(footer)
                     .setColor(embedColor));
                     msg.delete(msg);
-                    msg.channel.send(new MessageEmbed()
-                    .setTitle("**Ban**")
-                    .setDescription(`(:white_check_mark:) ${member} has been banned for **${rsFinal}**.`)
-                    .setFooter(footer)
-                    .setColor(embedColor));
-                    msg.guild.members.ban(member, {
-                        days: null,
-                        reason: rsFinal
-                    }).then(() => {
-                        console.log(`${member.name} has been banned from ${msg.guild.name}`)
-                    })
+                } else {
+                    if (member.roles.highest >= msg.member.roles.highest || msg.guild.owner.id === member.user.id || member.hasPermission("ADMINISTRATOR")) {
+                        msg.channel.send(new MessageEmbed()
+                        .setTitle("**Ban**")
+                        .setDescription("(:x:) You cannot ban this user.")
+                        .setFooter(footer)
+                        .setColor(embedColor));
+                    } else {
+                        var reason = "";
+                        for (const word in args) {
+                            reason = reason + args[word] + " ";
+                        }
+                        var rsFinal = reason.replace("" + member, "");
+                        rsFinal = rsFinal.replace("<", "");
+                        rsFinal = rsFinal.replace("@", "");
+                        rsFinal = rsFinal.replace("!", "");
+                        rsFinal = rsFinal.replace(">", "");
+                        member.send(new MessageEmbed()
+                        .setTitle("**Ban**")
+                        .setDescription(`**You have been banned from ${msg.guild.name}!**\n**You were banned for:** ${rsFinal}`)
+                        .setFooter(footer)
+                        .setColor(embedColor));
+                        msg.delete(msg);
+                        msg.channel.send(new MessageEmbed()
+                        .setTitle("**Ban**")
+                        .setDescription(`(:white_check_mark:) ${member} has been banned for **${rsFinal}**.`)
+                        .setFooter(footer)
+                        .setColor(embedColor));
+                        msg.guild.members.ban(member, {
+                            days: null,
+                            reason: rsFinal
+                        }).then(() => {
+                            console.log(`${member.name} has been banned from ${msg.guild.name}`)
+                        })
+                        const date = new Date();
+                        const name = member.user.username;
+                        utils.logpunishment(msg, name, "Ban", rsFinal, "Permanent", date);
+                    }
                 }
             }
         }

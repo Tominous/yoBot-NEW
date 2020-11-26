@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const bot = new Discord.Client();
 const { MessageEmbed } = require("discord.js");
 
+const utils = require("../Utils/Utils.js");
 const config = require("../config.json");
 
 const footer = config.Footer;
@@ -49,6 +50,9 @@ module.exports = {
                     .setDescription(`**You have been warned in ${msg.guild.name}!**\n**You were warned for:** ${rsFinal}`)
                     .setFooter(footer)
                     .setColor(embedColor));
+                    const date = new Date();
+                    const name = member.user.username;
+                    utils.logpunishment(msg, name, "Warn", rsFinal, "Permanent", date);
                 }
             }
         }

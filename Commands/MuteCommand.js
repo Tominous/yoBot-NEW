@@ -82,6 +82,9 @@ module.exports = {
                     .setFooter(footer)
                     .setColor(embedColor));
                     member.roles.add(muteRole);
+                    const date = new Date();
+                    const name = member.user.username;
+                    utils.logpunishment(msg, name, "Mute", rsFinal, "Permanent", date);
                 }
             }
         }
