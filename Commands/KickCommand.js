@@ -22,19 +22,19 @@ module.exports = {
             const member = msg.mentions.members.first();
             if (member == null) {
                 msg.channel.send(new MessageEmbed()
-                .setTitle("**Incorrect Usage!**")
-                .setDescription("```css\n^kick <member> <reason>\n```")
+                .setTitle("**Kick**")
+                .setDescription("(:x:) User must be a mention.")
                 .setFooter(footer)
                 .setColor(embedColor));
                 msg.delete(msg);
             } else {
-                if (args[0] === "@everyone" || args[0] === "@here") {
+                if (args[0].toLowerCase() === "@everyone" || args[0].toLowerCase() === "@here") {
                     msg.channel.send(new MessageEmbed()
-                .setTitle("**Incorrect Usage!**")
-                .setDescription("```css\n^kick <member> <reason>\n```")
-                .setFooter(footer)
-                .setColor(embedColor));
-                msg.delete(msg);
+                    .setTitle("**Kick**")
+                    .setDescription("(:x:) User cannot be those mentions.")
+                    .setFooter(footer)
+                    .setColor(embedColor));
+                    msg.delete(msg);
                 } else {
                     var reason = "";
                     for (const word in args) {
@@ -57,11 +57,13 @@ module.exports = {
                     .setFooter(footer)
                     .setColor(embedColor));
                     member.kick(rsFinal).then(() => {
-                        console.log(`${member} has been kicked fron ${msg.guild.name}`);
+                        const logmsg = `[${msg.guild.name}], ${msg.author.username} has kicked ${member.user.username}`
+                        utils.loginconsole(logmsg);
                     });
                     const date = new Date();
                     const name = member.user.username;
                     utils.logpunishment(msg, name, "Kick", rsFinal, "N/A", date);
+                    
                 }
             }
         }

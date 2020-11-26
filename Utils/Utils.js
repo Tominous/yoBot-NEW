@@ -31,5 +31,9 @@ module.exports = {
         } else {
             return;
         }
+    },
+
+    loginconsole: function(logmsg) {
+        console.log("[yoBot]: " + logmsg);
     }
 }

@@ -3,6 +3,7 @@ const bot = new Discord.Client();
 const { MessageEmbed } = require("discord.js");
 
 const config = require("../config.json");
+const utils = require("../Utils/Utils.js");
 
 const footer = config.Footer;
 const embedColor = config.EmbedColor;
@@ -21,19 +22,19 @@ module.exports = {
             const member = msg.mentions.members.first();
             if (member == null) {
                 msg.channel.send(new MessageEmbed()
-                .setTitle("**Incorrect Usage!**")
-                .setDescription("```css\n^mute <member> <reason>\n```")
+                .setTitle("**Mute**")
+                .setDescription("(:x:) User must be a mention.")
                 .setFooter(footer)
                 .setColor(embedColor));
                 msg.delete(msg);
             } else {
-                if (args[0] === "@everyone" || args[0] === "@here") {
+                if (args[0].toLowerCase() === "@everyone" || args[0].toLowerCase() === "@here") {
                     msg.channel.send(new MessageEmbed()
-                .setTitle("**Incorrect Usage!**")
-                .setDescription("```css\n^mute <member> <reason>\n```")
-                .setFooter(footer)
-                .setColor(embedColor));
-                msg.delete(msg);
+                    .setTitle("**Mute**")
+                    .setDescription("(:x:) User cannot be those mentions.")
+                    .setFooter(footer)
+                    .setColor(embedColor));
+                    msg.delete(msg);
                 } else {
                     var reason = "";
                     for (const word in args) {
@@ -85,6 +86,8 @@ module.exports = {
                     const date = new Date();
                     const name = member.user.username;
                     utils.logpunishment(msg, name, "Mute", rsFinal, "Permanent", date);
+                    const logmsg = `[${msg.guild.name}], ${msg.author.username} has muted ${member.user.username}`
+                    utils.loginconsole(logmsg);
                 }
             }
         }

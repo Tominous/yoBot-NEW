@@ -136,12 +136,6 @@ bot.on("roleCreate", (role) => {
 bot.on("roleDelete", (role) => {
     actionlisteners.roledelete(role);
 })
-bot.on("channelCreate", (channel) => {
-    actionlisteners.channelcreate(channel);
-})
-bot.on("channelDelete", (channel) => {
-    actionlisteners.channeldelete(channel);
-})
 bot.on("messageDelete", (msg) => {
     actionlisteners.msgdelete(msg);
 })

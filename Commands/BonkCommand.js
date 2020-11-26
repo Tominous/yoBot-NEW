@@ -3,6 +3,7 @@ const bot = new Discord.Client();
 const { MessageEmbed } = require("discord.js");
 
 const config = require("../config.json");
+const utils = require("../Utils/Utils.js");
 
 const footer = config.Footer;
 const embedColor = config.EmbedColor;
@@ -18,11 +19,12 @@ module.exports = {
             .setColor(embedColor));
         } else {
             if (args[0].toLowerCase() === "@everyone" || args[0].toLowerCase === "@here") {
-                msg.delete(msg);
-                msg.channel.send(new MessageEmbed().setTitle("**Error:**")
-                .setDescription("You can't bonk everyone, silly!\n(Requested By: <@" + msg.author.id + ">)")
+                msg.channel.send(new MessageEmbed()
+                .setTitle("**Bonk**")
+                .setDescription("(:x:) User cannot be those mentions.")
                 .setFooter(footer)
                 .setColor(embedColor));
+                msg.delete(msg);
             } else {
                 const member = msg.mentions.members.first();
                 if (member != null) {
@@ -37,12 +39,15 @@ module.exports = {
                     .setDescription(`**You have been bonked by <@${msg.author.id}>!**\n**You were bonked in:** ${msg.guild.name}`)
                     .setFooter(footer)
                     .setColor(embedColor));
+                    const logmsg = `[${msg.guild.name}], ${msg.author.username} has bonked ${member.user.username}`
+                    utils.loginconsole(logmsg);
                 } else {
                     msg.channel.send(new MessageEmbed()
-                    .setTitle("**Incorrect Usage!**")
-                    .setDescription("```css\n^bonk <member>\n```\n(Requested By: <@" + msg.author.id + ">)")
+                    .setTitle("**Bonk**")
+                    .setDescription("(:x:) User must be a mention.")
                     .setFooter(footer)
                     .setColor(embedColor));
+                    msg.delete(msg);
                 }
             }
         }

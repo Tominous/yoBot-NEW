@@ -3,6 +3,7 @@ const bot = new Discord.Client();
 const { MessageEmbed } = require("discord.js");
 
 const config = require("../config.json");
+const utils = require("../Utils/Utils.js");
 
 const footer = config.Footer;
 const embedColor = config.EmbedColor;
@@ -18,5 +19,7 @@ module.exports = {
         msg.delete(msg);
         msg.channel.send(new MessageEmbed().setTitle("**Server Info:**").setDescription(`**Created:** ${createdDate}\n**Owner:** <@${ownerid}>\n**Members:** ${members}\n \n(Requested By: <@${msg.author.id}>)`)
         .setFooter(footer).setColor(embedColor));
+        const logmsg = `[${msg.guild.name}], ${msg.author.username} has run the ^serverinfo command.`
+        utils.loginconsole(logmsg);
     }
 }

@@ -41,24 +41,6 @@ module.exports = {
         utils.logaction(guild, name, type, date, details);
     },
 
-    channelcreate: function(channel) {
-        const guild = channel.guild;
-        const name = "Channel";
-        const type = "Channel Created";
-        const details = channel.name;
-        const date = new Date();
-        utils.logaction(guild, name, type, date, details);
-    },
-
-    channeldelete: function(channel) {
-        const guild = channel.guild;
-        const name = "Channel";
-        const type = "Channel Deleted";
-        const details = channel.name;
-        const date = new Date();
-        utils.logaction(guild, name, type, date, details);
-    },
-
     msgdelete: function(msg) {
         const name = msg.author.username;
         const type = "Message Deleted";

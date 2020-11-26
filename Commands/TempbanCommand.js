@@ -22,18 +22,18 @@ module.exports = {
             const member = msg.mentions.members.first();
             if (member == null) {
                 msg.channel.send(new MessageEmbed()
-                .setTitle("**Incorrect Usage!**")
-                .setDescription("```css\n^tempban <member> <time> <reason>\n```")
+                .setTitle("**Ban**")
+                .setDescription("(:x:) User must be a mention.")
                 .setFooter(footer)
                 .setColor(embedColor));
                 msg.delete(msg);
             } else {
-                if (args[0] === "@everyone" || args[0] === "@here") {
+                if (args[0].toLowerCase() === "@everyone" || args[0].toLowerCase() === "@here") {
                     msg.channel.send(new MessageEmbed()
-                    .setTitle("**Incorrect Usage!**")
-                    .setDescription("```css\n^tempban <member> <time> <reason>\n```")
+                    .setTitle("**Ban**")
+                    .setDescription("(:x:) User cannot be those mentions.")
                     .setFooter(footer)
-                    .setColor(embedColor)); 
+                    .setColor(embedColor));
                     msg.delete(msg);
                 } else {
                     let timeArg = args[1];
@@ -65,7 +65,8 @@ module.exports = {
                         days: time,
                         reason: rsFinal
                     }).then(() => {
-                        console.log(`${member.name} has been banned from ${msg.guild.name}`)
+                        const logmsg = `[${msg.guild.name}], ${msg.author.username} has temp-banned ${member.user.username}`
+                        utils.loginconsole(logmsg);
                     });
                     const date = new Date();
                     const name = member.user.username;

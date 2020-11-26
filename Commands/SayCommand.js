@@ -3,6 +3,7 @@ const bot = new Discord.Client();
 const { MessageEmbed } = require("discord.js");
 
 const config = require("../config.json");
+const utils = require("../Utils/Utils.js");
 
 const footer = config.Footer;
 const embedColor = config.EmbedColor;
@@ -18,6 +19,8 @@ module.exports = {
             }
             msg.delete(msg);
             msg.channel.send(new MessageEmbed().setTitle("**yoBot Says:**").setDescription(`${message}`).setFooter(footer).setColor(embedColor));
+            const logmsg = `[${msg.guild.name}], ${msg.author.username} has run the ^say command. (${message})`
+            utils.loginconsole(logmsg);
         }
     }
 }

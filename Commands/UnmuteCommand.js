@@ -3,6 +3,7 @@ const bot = new Discord.Client();
 const { MessageEmbed } = require("discord.js");
 
 const config = require("../config.json");
+const utils = require("../Utils/Utils.js");
 
 const footer = config.Footer;
 const embedColor = config.EmbedColor;
@@ -21,16 +22,16 @@ module.exports = {
             const member = msg.mentions.members.first();
             if (member == null) {
                 msg.channel.send(new MessageEmbed()
-                .setTitle("**Incorrect Usage!**")
-                .setDescription("```css\n^unmute <member>\n```")
+                .setTitle("**Unmute**")
+                .setDescription("(:x:) User must be a mention.")
                 .setFooter(footer)
                 .setColor(embedColor));
                 msg.delete(msg);
             } else {
-                if (args[0] === "@everyone" || args[0] === "@here") {
+                if (args[0].toLowerCase() === "@everyone" || args[0].toLowerCase() === "@here") {
                     msg.channel.send(new MessageEmbed()
-                    .setTitle("**Incorrect Usage!**")
-                    .setDescription("```css\n^unmute <member>\n```")
+                    .setTitle("**Unmute**")
+                    .setDescription("(:x:) User cannot be those mentions.")
                     .setFooter(footer)
                     .setColor(embedColor));
                     msg.delete(msg);
@@ -57,6 +58,8 @@ module.exports = {
                         .setDescription(`**You have been unmuted in ${msg.guild.name}!**`)
                         .setFooter(footer)
                         .setColor(embedColor));
+                        const logmsg = `[${msg.guild.name}], ${msg.author.username} has unmuted ${member.user.username}`
+                        utils.loginconsole(logmsg);
                     }
                 }
             }
