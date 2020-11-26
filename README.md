@@ -17,9 +17,14 @@ The goal of this bot is to make it so that if you use this bot in your server, y
   - ^tempmute <member> <time> <reason>
   - ^mute <member> <reason>
   - ^kick <member> <reason>
+  - ^tempban <member> <time> <reason>
   - ^ban <member> <reason>
   
+### Listeners:
+  - Action listeners, such as join/leaves, role/channel create/deletes, and message deletes.
+  - Join listener for the bot in specific that displays a helpful message in one of the channels in the server.
+  
 ### What I'm working on:
-I'm currently finishing up on the punishments, all I have to do is add temp-ban and history and I'll be done. For history, I plan on using a JSON file to store data instead of a database, just like in vNitrogen I used a YAML file to store grants and punishments, rather than a database.
+I'm currently finishing up on the punishments, all I have to do is add history and I'll be done. For history, I plan on using a JSON file to store data instead of a database, just like in vNitrogen I used a YAML file to store grants and punishments, rather than a database.
 
 After I finish punishments, my friend wanted me to add a music feature, so that's what I'll be doing.
