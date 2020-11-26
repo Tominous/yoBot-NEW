@@ -3,6 +3,10 @@ const bot = new Discord.Client();
 const { MessageEmbed } = require("discord.js");
 
 const config = require("../yoBotNew/config.json");
+const utils = require("../yoBotNew/Utils/Utils.js");
+
+const actionlisteners = require("../yoBotNew/Listeners/ActionListeners.js");
+const botjoinlistener = require("../yoBotNew/Listeners/BotJoinListener.js");
 
 const embedColor = config.EmbedColor;
 const footer = config.Footer;
@@ -19,6 +23,8 @@ const unmute = require("../yoBotNew/Commands/UnmuteCommand.js");
 const kick = require("../yoBotNew/Commands/KickCommand.js");
 const ban = require("../yoBotNew/Commands/BanCommand.js");
 const tempmute = require("../yoBotNew/Commands/TempmuteCommand.js");
+const tempban = require("../yoBotNew/Commands/TempbanCommand.js");
+const { channeldelete } = require("../yoBotNew/Listeners/ActionListeners.js");
 
 bot.once("ready", () => {
     console.log("[yoBot]: yoBot v2.0 by Yochran is loading...");
@@ -58,10 +64,11 @@ bot.once("ready", () => {
     }
     console.log("[yoBot]: Amount of Guilds: " + guildsAmt);
     bot.user.setStatus("dnd");
-    bot.user.setActivity("Bot is under construction!", {type: "WATCHING"});
+    bot.user.setActivity("https://github.com/Yochran/vCores", {type: "WATCHING"});
     let enableChannel = bot.channels.cache.get(config.EnableChannel);
     enableChannel.send(new MessageEmbed().setTitle("**yoBot**").setDescription("yoBot v2.0 by Yochran has enabled into " + guildsAmt + " servers").setFooter(footer).setColor(embedColor));
-    console.log("[yoBot]: yoBot v2.0 by Yochran has successfully loaded.\n[yoBot] Loading commands...");
+    console.log("[yoBot]: yoBot v2.0 by Yochran has successfully loaded.\n[yoBot]: Loading commands...");
+    console.log("[yoBot]: Commands have loaded.");
 })
 
 bot.on("message", (msg) => {
@@ -109,6 +116,40 @@ bot.on("message", (msg) => {
         case "tempmute":
             tempmute.tempmute(msg, args);
             break;
+        case "tempban":
+            tempban.tempban(msg, args);
+            break;
+    }
+})
+
+// Logging actions
+
+bot.on("guildMemberAdd", (member) => {
+    actionlisteners.memberjoin(member);
+})
+bot.on("guildMemberRemove", (msg) => {
+    actionlisteners.memberleave(msg);
+})
+bot.on("roleCreate", (role) => {
+    actionlisteners.rolecreate(role);
+})
+bot.on("roleDelete", (role) => {
+    actionlisteners.roledelete(role);
+})
+bot.on("channelCreate", (channel) => {
+    actionlisteners.channelcreate(channel);
+})
+bot.on("channelDelete", (channel) => {
+    actionlisteners.channeldelete(channel);
+})
+bot.on("messageDelete", (msg) => {
+    actionlisteners.msgdelete(msg);
+})
+
+// Bot Join Listener
+bot.on("guildMemberAdd", (member) => {
+    if (member.user.id === bot.user.id) {
+        botjoinlistener.botjoinlistener(member);
     }
 })
 
