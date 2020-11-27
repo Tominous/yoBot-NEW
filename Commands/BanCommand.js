@@ -52,11 +52,15 @@ module.exports = {
                         rsFinal = rsFinal.replace("@", "");
                         rsFinal = rsFinal.replace("!", "");
                         rsFinal = rsFinal.replace(">", "");
-                        member.send(new MessageEmbed()
-                        .setTitle("**Ban**")
-                        .setDescription(`**You have been banned from ${msg.guild.name}!**\n**You were banned for:** ${rsFinal}`)
-                        .setFooter(footer)
-                        .setColor(embedColor));
+                        try {
+                            member.send(new MessageEmbed()
+                            .setTitle("**Ban**")
+                            .setDescription(`**You have been banned from ${msg.guild.name}!**\n**You were banned for:** ${rsFinal}`)
+                            .setFooter(footer)
+                            .setColor(embedColor));
+                        } catch (e) {
+                            console.log(`[yoBot]: Couldn't send ban message to the user ${member.user.name}`);
+                        }
                         msg.delete(msg);
                         msg.channel.send(new MessageEmbed()
                         .setTitle("**Ban**")

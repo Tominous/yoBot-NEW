@@ -51,11 +51,15 @@ module.exports = {
                     rsFinal = rsFinal.replace(">", "");
                     rsFinal = rsFinal.replace("" + timeArg, "");
                     msg.delete(msg);
-                    member.send(new MessageEmbed()
-                    .setTitle("**Ban**")
-                    .setDescription(`**You have been banned in ${msg.guild.name} for ${banLength}!**\n**You were banned for:** ${rsFinal}`)
-                    .setFooter(footer)
-                    .setColor(embedColor));
+                    try {
+                        member.send(new MessageEmbed()
+                        .setTitle("**Ban**")
+                        .setDescription(`**You have been banned in ${msg.guild.name} for ${banLength}!**\n**You were banned for:** ${rsFinal}`)
+                        .setFooter(footer)
+                        .setColor(embedColor));
+                    } catch (e) {
+                        console.log(`[yoBot]: Couldn't send kick message to the user ${member.user.name}`);
+                    }
                     msg.channel.send(new MessageEmbed()
                     .setTitle("**Ban**")
                     .setDescription(`(:white_check_mark:) ${member} has been banned for **${rsFinal}**. (${banLength})`)

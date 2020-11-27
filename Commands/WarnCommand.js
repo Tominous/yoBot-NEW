@@ -47,11 +47,15 @@ module.exports = {
                     .setDescription(`(:white_check_mark:) ${member} has been warned for **${rsFinal}**.`)
                     .setFooter(footer)
                     .setColor(embedColor));
-                    member.send(new MessageEmbed()
-                    .setTitle("**Warn**")
-                    .setDescription(`**You have been warned in ${msg.guild.name}!**\n**You were warned for:** ${rsFinal}`)
-                    .setFooter(footer)
-                    .setColor(embedColor));
+                    try {
+                        member.send(new MessageEmbed()
+                        .setTitle("**Warn**")
+                        .setDescription(`**You have been warned in ${msg.guild.name}!**\n**You were warned for:** ${rsFinal}`)
+                        .setFooter(footer)
+                        .setColor(embedColor));
+                    } catch (e) {
+                        console.log(`[yoBot]: Couldn't send kick message to the user ${member.user.name}`);
+                    }
                     const date = new Date();
                     const name = member.user.username;
                     utils.logpunishment(msg, name, "Warn", rsFinal, "Permanent", date);

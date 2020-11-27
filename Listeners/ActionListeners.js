@@ -47,7 +47,5 @@ module.exports = {
         const details = msg.content;
         const date = new Date();
         utils.logaction(msg.guild, name, type, date, details);
-    },
-
-    
+    }
 }

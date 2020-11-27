@@ -53,13 +53,17 @@ module.exports = {
                         .setDescription(`(:white_check_mark:) ${member} has been unmuted.`)
                         .setFooter(footer)
                         .setColor(embedColor));
-                        member.send(new MessageEmbed()
-                        .setTitle("**Unmute**")
-                        .setDescription(`**You have been unmuted in ${msg.guild.name}!**`)
-                        .setFooter(footer)
-                        .setColor(embedColor));
-                        const logmsg = `[${msg.guild.name}], ${msg.author.username} has unmuted ${member.user.username}`
-                        utils.loginconsole(logmsg);
+                        try {
+                            member.send(new MessageEmbed()
+                            .setTitle("**Unmute**")
+                            .setDescription(`**You have been unmuted in ${msg.guild.name}!**`)
+                            .setFooter(footer)
+                            .setColor(embedColor));
+                            const logmsg = `[${msg.guild.name}], ${msg.author.username} has unmuted ${member.user.username}`
+                            utils.loginconsole(logmsg);
+                        } catch (e) {
+                            console.log(`[yoBot]: Couldn't send kick message to the user ${member.user.name}`);
+                        }
                     }
                 }
             }

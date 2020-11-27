@@ -34,11 +34,15 @@ module.exports = {
                     .setDescription(`<@${msg.author.id}> has bonked ${member} over the head.\n \n(Requested By: <@${msg.author.id}>)`)
                     .setFooter(footer)
                     .setColor(embedColor));
-                    member.send(new MessageEmbed()
-                    .setTitle("**Bonk:**")
-                    .setDescription(`**You have been bonked by <@${msg.author.id}>!**\n**You were bonked in:** ${msg.guild.name}`)
-                    .setFooter(footer)
-                    .setColor(embedColor));
+                    try {
+                        member.send(new MessageEmbed()
+                        .setTitle("**Bonk:**")
+                        .setDescription(`**You have been bonked by <@${msg.author.id}>!**\n**You were bonked in:** ${msg.guild.name}`)
+                        .setFooter(footer)
+                        .setColor(embedColor));
+                    } catch (e) {
+                        console.log(`[yoBot]: Couldn't send bonk message to the user ${member.user.name}`);
+                    }
                     const logmsg = `[${msg.guild.name}], ${msg.author.username} has bonked ${member.user.username}`
                     utils.loginconsole(logmsg);
                 } else {

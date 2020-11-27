@@ -77,11 +77,15 @@ module.exports = {
                     .setDescription(`(:white_check_mark:) ${member} has been muted for **${rsFinal}**.`)
                     .setFooter(footer)
                     .setColor(embedColor));
-                    member.send(new MessageEmbed()
-                    .setTitle("**Mute**")
-                    .setDescription(`**You have been muted in ${msg.guild.name}!**\n**You were muted for:** ${rsFinal}`)
-                    .setFooter(footer)
-                    .setColor(embedColor));
+                    try {
+                        member.send(new MessageEmbed()
+                        .setTitle("**Mute**")
+                        .setDescription(`**You have been muted in ${msg.guild.name}!**\n**You were muted for:** ${rsFinal}`)
+                        .setFooter(footer)
+                        .setColor(embedColor));
+                    } catch (e) {
+                        console.log(`[yoBot]: Couldn't send kick message to the user ${member.user.name}`);
+                    }
                     member.roles.add(muteRole);
                     const date = new Date();
                     const name = member.user.username;

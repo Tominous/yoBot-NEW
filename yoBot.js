@@ -24,7 +24,6 @@ const kick = require("../yoBotNew/Commands/KickCommand.js");
 const ban = require("../yoBotNew/Commands/BanCommand.js");
 const tempmute = require("../yoBotNew/Commands/TempmuteCommand.js");
 const tempban = require("../yoBotNew/Commands/TempbanCommand.js");
-const { channeldelete } = require("../yoBotNew/Listeners/ActionListeners.js");
 
 bot.once("ready", () => {
     console.log("[yoBot]: yoBot v2.0 by Yochran is loading...");
