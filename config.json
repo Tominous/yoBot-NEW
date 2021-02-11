@@ -1,12 +1,26 @@
 {
     "Token" : "HIDDEN",
     "Prefix" : "^",
-    "NOTICE_1" : "GuildMapping and ChannelMapping boolean values must be in ALL CAPS!",
-    "GuildMapping" : "FALSE",
-    "NOTICE_2" : "GuildMapping must be TRUE for ChannelMapping to work.",
-    "ChannelMapping" : "FALSE",
+    "GuildMapping" : false,
+    "ChannelMapping" : false,
     "EnableChannel" : "758680334698414081",
 
     "EmbedColor" : "YELLOW",
-    "Footer" : "https://github.com/Yochran"
+    "Footer" : "https://github.com/Yochran",
+
+    "Commands" : [
+        "bot",
+        "userinfo",
+        "user",
+        "serverinfo",
+        "server",
+        "say",
+        "bonk",
+        "warn",
+        "tempmute",
+        "mute",
+        "kick",
+        "tempban",
+        "ban"
+    ]
 }
