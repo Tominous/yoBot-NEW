@@ -7,8 +7,8 @@ const utils = require("../Utils/Utils.js");
 module.exports = {
     memberjoin: function(member) {
         const guild = member.guild;
-        const name = member.user.username;
-        const type = "User Join"
+        const name = "**User: " + msg.author.username + "**";
+        const type = "Member Joined"
         const date = new Date();
         const details = "User joined server."
         utils.logaction(guild, name, type, date, details);
@@ -16,8 +16,8 @@ module.exports = {
 
     memberleave: function(member) {
         const guild = member.guild;
-        const name = member.user.username;
-        const type = "User Leave"
+        const name = "**User: " + msg.author.username + "**";
+        const type = "Member Leave"
         const date = new Date();
         const details = "User left server."
         utils.logaction(guild, name, type, date, details);
@@ -25,7 +25,7 @@ module.exports = {
 
     rolecreate: function(role) {
         const guild = role.guild;
-        const name = "Role";
+        const name = "**Roles**";
         const type = "Role Created";
         const details = role.name;
         const date = new Date();
@@ -34,7 +34,7 @@ module.exports = {
 
     roledelete: function(role) {
         const guild = role.guild;
-        const name = "Role";
+        const name = "**Roles**";
         const type = "Role Deleted";
         const details = role.name;
         const date = new Date();
@@ -42,7 +42,7 @@ module.exports = {
     },
 
     msgdelete: function(msg) {
-        const name = msg.author.username;
+        const name = "**User: " + msg.author.username + "**";
         const type = "Message Deleted";
         const details = msg.content;
         const date = new Date();
