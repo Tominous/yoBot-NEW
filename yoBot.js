@@ -24,8 +24,11 @@ const kick = require("../yoBot/Commands/KickCommand.js");
 const ban = require("../yoBot/Commands/BanCommand.js");
 const tempmute = require("../yoBot/Commands/TempmuteCommand.js");
 const tempban = require("../yoBot/Commands/TempbanCommand.js");
-const forceadmin = require("./Commands/ForceAdminCommand");
-const avatar = require("./Commands/AvatarCommand");
+const forceadmin = require("./Commands/ForceAdminCommand.js");
+const avatar = require("./Commands/AvatarCommand.js");
+const poll = require("../yoBot/Commands/PollCommand.js");
+const purge = require("./Commands/PurgeCommand.js");
+const ping = require("./Commands/PingCommand.js");
 
 var commandList = [];
 
@@ -137,6 +140,16 @@ bot.on("message", (msg) => {
         case "av":
         case "avatar":
             avatar.avatar(msg, args);
+            break;
+        case "poll":
+            poll.poll(msg, args);
+            break;
+        case "clear":
+        case "purge":
+            purge.purge(msg, args);
+            break;
+        case "ping":
+            ping.ping(msg);
             break;
     }
 

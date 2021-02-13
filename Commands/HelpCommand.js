@@ -13,7 +13,7 @@ module.exports = {
         msg.delete(msg);
         msg.channel.send(new MessageEmbed()
         .setTitle("**yoBot Help:**")
-        .setDescription("**Prefix:** `^`\n```yaml\nCommands:\n- bot\n- userinfo\n- serverinfo\n- say\n- bonk\n- warn\n- tempmute\n- mute\n- kick\n- tempban\n- ban\n```\n(Requested By: <@" + msg.author.id + ">)")
+        .setDescription("**Prefix:** `" + config.Prefix + "`\n```yaml\nCommands:\n- bot\n- userinfo\n- serverinfo\n- say\n- bonk\n- warn\n- tempmute\n- mute\n- kick\n- tempban\n- ban\n- purge\n- avatar\n- poll\n- ping```\n(Requested By: <@" + msg.author.id + ">)")
         .setFooter(footer)
         .setColor(embedColor));
     }

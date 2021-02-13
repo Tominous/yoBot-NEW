@@ -26,6 +26,10 @@
         "ban",
         "forceadmin",
         "av",
-        "avatar"
+        "avatar",
+        "poll",
+        "clear",
+        "purge",
+        "ping"
     ]
 }
