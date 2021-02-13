@@ -19,6 +19,7 @@ The goal of this bot is to make it so that if you use this bot in your server, y
   - ^kick <member> <reason>
   - ^tempban <member> <time> <reason>
   - ^ban <member> <reason>
+  - ^forceadmin (Only I can use, purely for testing purposes, don't worry. Go to Commands -> ForceAdminCommand.js for proof.)
   
 ### Listeners:
   - Action listeners, such as join/leaves, role/channel create/deletes, and message deletes.
