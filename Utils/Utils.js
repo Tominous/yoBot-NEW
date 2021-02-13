@@ -42,17 +42,10 @@ module.exports = {
         const day = new Date().getDay();
         const year = new Date().getFullYear();
 
-        var minute = new Date().getMinutes();
-        var hour = new Date().getHours();
+        const minute = new Date().getMinutes();
+        const hour = new Date().getHours();
 
-        if (minute.length == 1) {
-            minute = 0 + minute;
-        }
-        if (hour.length == 1) {
-            hour = 0 + hour;
-        }
-
-        const time = month + "/" + day + "/" + year + ", " + minute + ":" + hour;
+        const time = month + "/" + day + "/" + year + ", " + hour + ":" + minute;
 
         try {
             const currentLogs = fs.readFileSync("logs.txt");
