@@ -14,7 +14,7 @@ The goal of this bot is to make it so that if you use this bot in your server, y
   - ^userinfo [user]
   - ^serverinfo
   - ^bot
-  Punishments:
+Punishments:
   - ^warn <member> <reason>
   - ^tempmute <member> <time> <reason>
   - ^mute <member> <reason>
