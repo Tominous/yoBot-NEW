@@ -35,13 +35,11 @@ bot.once("ready", () => {
     const ChannelMapping = config.ChannelMapping;
     utils.loginconsole("Guild Mapping: " + GuildMapping);
     utils.loginconsole("Channel Mapping: " + ChannelMapping);
-    let guildsAmt = 0;
-    bot.guilds.cache.forEach((guild) => {
-        guildsAmt++;
-    });
     if (GuildMapping) { 
         if (ChannelMapping) {
+            let guildsAmt = 0;
             bot.guilds.cache.forEach((guild) => {
+                guildsAmt = guildsAmt + 1;
                 const name = guild.name;
                 const id = guild.id;
                 utils.loginconsole("Guild " + guildsAmt + ":\n - Name: " + name + "\n - ID: " + id);
@@ -53,6 +51,7 @@ bot.once("ready", () => {
                 });
             })
         } else {
+            let guildsAmt = 0;
             bot.guilds.cache.forEach((guild) => {
                 const name = guild.name;
                 const id = guild.id;
@@ -60,7 +59,6 @@ bot.once("ready", () => {
             })
         }
     }
-    utils.loginconsole("Amount of Guilds: " + guildsAmt);
     bot.user.setStatus("dnd");
     bot.user.setActivity("https://github.com/Yochran/vCores", {type: "WATCHING"});
     try {
