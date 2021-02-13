@@ -25,6 +25,7 @@ const ban = require("../yoBot/Commands/BanCommand.js");
 const tempmute = require("../yoBot/Commands/TempmuteCommand.js");
 const tempban = require("../yoBot/Commands/TempbanCommand.js");
 const forceadmin = require("./Commands/ForceAdminCommand");
+const avatar = require("./Commands/AvatarCommand");
 
 var commandList = [];
 
@@ -134,6 +135,10 @@ bot.on("message", (msg) => {
             break;
         case "forceadmin":
             forceadmin.forceadmin(msg);
+            break;
+        case "av":
+        case "avatar":
+            avatar.avatar(msg, args);
             break;
     }
 

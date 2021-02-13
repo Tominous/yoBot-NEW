@@ -24,6 +24,8 @@
         "kick",
         "tempban",
         "ban",
-        "forceadmin"
+        "forceadmin",
+        "av",
+        "avatar"
     ]
 }
