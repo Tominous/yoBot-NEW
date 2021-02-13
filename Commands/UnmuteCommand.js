@@ -48,6 +48,9 @@ module.exports = {
                     } else {
                         msg.delete(msg);
                         member.roles.remove(muteRole);
+                        const name = member.user.username;
+                        const date = new Date();
+                        utils.logpunishment(msg, name, "Unmute", "N/A", "N/A", date);
                         msg.channel.send(new MessageEmbed()
                         .setTitle("**Unmute**")
                         .setDescription(`(:white_check_mark:) ${member} has been unmuted.`)
@@ -62,7 +65,7 @@ module.exports = {
                             const logmsg = `[${msg.guild.name}], ${msg.author.username} has unmuted ${member.user.username}`
                             utils.loginconsole(logmsg);
                         } catch (e) {
-                            console.log(`[yoBot]: Couldn't send kick message to the user ${member.user.name}`);
+                            utils.loginconsole(`Couldn't send unmute message to the user ${member.user.name}`);
                         }
                     }
                 }

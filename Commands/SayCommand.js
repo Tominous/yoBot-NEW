@@ -19,7 +19,7 @@ module.exports = {
             }
             msg.delete(msg);
             msg.channel.send(new MessageEmbed().setTitle("**yoBot Says:**").setDescription(`${message}`).setFooter(footer).setColor(embedColor));
-            const logmsg = `[${msg.guild.name}], ${msg.author.username} has run the ^say command. (${message})`
+            const logmsg = `[${msg.guild.name}], ${msg.author.username} has said through the bot: "${message}"`
             utils.loginconsole(logmsg);
         }
     }

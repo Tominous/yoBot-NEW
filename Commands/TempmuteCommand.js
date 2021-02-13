@@ -89,7 +89,7 @@ module.exports = {
                         .setFooter(footer)
                         .setColor(embedColor));
                     } catch (e) {
-                        console.log(`[yoBot]: Couldn't send kick message to the user ${member.user.name}`);
+                        utils.loginconsole(`Couldn't send temp-mute message to the user ${member.user.name}`);
                     }
                     member.roles.add(muteRole);
                     setTimeout( async() => {
@@ -97,7 +97,7 @@ module.exports = {
                     }, time * 1000);
                     const date = new Date();
                     const name = member.user.username;
-                    utils.logpunishment(msg, name, "Mute", rsFinal, mutedLength, date);
+                    utils.logpunishment(msg, name, "Temp-Mute", rsFinal, mutedLength, date);
                     const logmsg = `[${msg.guild.name}], ${msg.author.username} has temp-muted ${member.user.username}`
                     utils.loginconsole(logmsg);
                 }

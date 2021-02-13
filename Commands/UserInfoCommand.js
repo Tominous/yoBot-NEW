@@ -30,8 +30,6 @@ module.exports = {
                 msg.channel.send(new MessageEmbed().setTitle(`**${username}'s User Info:**`)
                 .setDescription(`**Account Created:** ${accountCreatedDate}\n**Name:** ${username}\n**Tag:** ${tag}\n**Joined Server:** ${serverJoinDate}\n \n(Requested By: <@${msg.author.id}>)`)
                 .setFooter(footer).setColor(embedColor));
-                const logmsg = `[${msg.guild.name}], ${msg.author.username} has run the ^userinfo command.`
-                utils.loginconsole(logmsg);
             } else {
                 msg.delete(msg);
                 msg.channel.send(new MessageEmbed().setTitle("**Incorrect Usage!**").setDescription("```css\n^user [member]\n```\n(Requested By: <@" + msg.author.id + ">)").setFooter(footer).setColor(embedColor));

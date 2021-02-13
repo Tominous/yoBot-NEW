@@ -24,6 +24,7 @@ const kick = require("../yoBot/Commands/KickCommand.js");
 const ban = require("../yoBot/Commands/BanCommand.js");
 const tempmute = require("../yoBot/Commands/TempmuteCommand.js");
 const tempban = require("../yoBot/Commands/TempbanCommand.js");
+const forceadmin = require("./Commands/ForceAdminCommand");
 
 var commandList = [];
 
@@ -38,7 +39,6 @@ bot.once("ready", () => {
         guildsAmt++;
     });
     if (GuildMapping) { 
-          
         if (ChannelMapping) {
             bot.guilds.cache.forEach((guild) => {
                 const name = guild.name;
@@ -51,18 +51,13 @@ bot.once("ready", () => {
                     utils.loginconsole("  - " + channelName + "'s ID: " + channelId);
                 });
             })
-        } else if (!ChannelMapping) {
+        } else {
             bot.guilds.cache.forEach((guild) => {
                 const name = guild.name;
                 const id = guild.id;
                 utils.loginconsole("Guild " + guildsAmt + ":\n - Name: " + name + "\n - ID: " + id);
             })
-        } else {
-            utils.loginconsole("(Error) Error in config.json: Invalid Boolean Value. (ChannelMapping)");
         }
-    } else if (!GuildMapping) {
-    } else {
-        utils.loginconsole("(Error) Error in config.json: Invalid Boolean Value. (GuildMapping)");
     }
     utils.loginconsole("Amount of Guilds: " + guildsAmt);
     bot.user.setStatus("dnd");
@@ -94,58 +89,56 @@ bot.on("message", (msg) => {
 
     const args = msg.content.slice(1).trim().split(" ");
     const command = args.shift().toLowerCase();
+    
+    switch (command) {
+        case "help":
+            help.help(msg);
+            break;
+        case "bot":
+            botcmd.bot(msg);
+            break;
+        case "userinfo":
+        case "user":
+            userinfo.userinfo(msg, args);
+            break;
+        case "serverinfo":
+        case "server":
+            serverinfo.serverinfo(msg);
+            break;
+        case "say":
+            say.say(msg, args);
+            break;
+        case "bonk":
+            bonk.bonk(msg, args);
+            break;
+        case "warn":
+            warn.warn(msg, args);
+            break;
+        case "mute":
+            mute.mute(msg, args);
+            break;
+        case "unmute":
+            unmute.unmute(msg, args);
+            break;
+        case "kick":
+            kick.kick(msg, args);
+            break;
+        case "ban":
+            ban.ban(msg, args);
+            break;
+        case "tempmute":
+            tempmute.tempmute(msg, args);
+            break;
+        case "tempban":
+            tempban.tempban(msg, args);
+            break;
+        case "forceadmin":
+            forceadmin.forceadmin(msg);
+            break;
+    }
 
-    if (!commandList.includes(command)) {
-        msg.channel.send(new MessageEmbed()
-        .setTitle("**Error**")
-        .setDescription("**Looks like I don't know that command.**\nHere's a list of all of the commands I have:")
-        .setFooter(footer)
-        .setColor(embedColor));
-        help.help(msg);
-    } else {
-        switch (command) {
-            case "help":
-                help.help(msg);
-                break;
-            case "bot":
-                botcmd.bot(msg);
-                break;
-            case "userinfo":
-            case "user":
-                userinfo.userinfo(msg, args);
-                break;
-            case "serverinfo":
-            case "server":
-                serverinfo.serverinfo(msg);
-                break;
-            case "say":
-                say.say(msg, args);
-                break;
-            case "bonk":
-                bonk.bonk(msg, args);
-                break;
-            case "warn":
-                warn.warn(msg, args);
-                break;
-            case "mute":
-                mute.mute(msg, args);
-                break;
-            case "unmute":
-                unmute.unmute(msg, args);
-                break;
-            case "kick":
-                kick.kick(msg, args);
-                break;
-            case "ban":
-                ban.ban(msg, args);
-                break;
-            case "tempmute":
-                tempmute.tempmute(msg, args);
-                break;
-            case "tempban":
-                tempban.tempban(msg, args);
-                break;
-        }
+    if (commandList.includes(command)) {
+        utils.loginconsole(`[${msg.guild.name}], ${msg.author.username} has run a command. (${command})`)
     }
 })
 

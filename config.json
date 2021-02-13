@@ -5,10 +5,11 @@
     "ChannelMapping" : false,
     "EnableChannel" : "758680334698414081",
 
-    "EmbedColor" : "YELLOW",
+    "EmbedColor" : "BLACK",
     "Footer" : "https://github.com/Yochran",
 
     "Commands" : [
+        "help",
         "bot",
         "userinfo",
         "user",
@@ -18,9 +19,11 @@
         "bonk",
         "warn",
         "tempmute",
+        "unmute",
         "mute",
         "kick",
         "tempban",
-        "ban"
+        "ban",
+        "forceadmin"
     ]
 }

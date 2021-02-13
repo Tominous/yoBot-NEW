@@ -54,7 +54,7 @@ module.exports = {
                         .setFooter(footer)
                         .setColor(embedColor));
                     } catch (e) {
-                        console.log(`[yoBot]: Couldn't send kick message to the user ${member.user.name}`);
+                        utils.loginconsole(`Couldn't send warn message to the user ${member.user.name}`);
                     }
                     const date = new Date();
                     const name = member.user.username;

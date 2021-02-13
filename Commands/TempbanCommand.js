@@ -36,45 +36,54 @@ module.exports = {
                     .setColor(embedColor));
                     msg.delete(msg);
                 } else {
-                    let timeArg = args[1];
-                    let time = 0;
-                    time = parseTime(args[1].toLowerCase());
-                    let banLength = getTimeFromArg(time);
-                    var reason = "";
-                    for (const word in args) {
-                        reason = reason + args[word] + " ";
-                    }
-                    var rsFinal = reason.replace("" + member, "");
-                    rsFinal = rsFinal.replace("<", "");
-                    rsFinal = rsFinal.replace("@", "");
-                    rsFinal = rsFinal.replace("!", "");
-                    rsFinal = rsFinal.replace(">", "");
-                    rsFinal = rsFinal.replace("" + timeArg, "");
-                    msg.delete(msg);
-                    try {
-                        member.send(new MessageEmbed()
+                    if (msg.guild.owner.id === member.user.id || member.hasPermission("ADMINISTRATOR")) {
+                        msg.channel.send(new MessageEmbed()
                         .setTitle("**Ban**")
-                        .setDescription(`**You have been banned in ${msg.guild.name} for ${banLength}!**\n**You were banned for:** ${rsFinal}`)
+                        .setDescription("(:x:) You cannot ban this user.")
                         .setFooter(footer)
                         .setColor(embedColor));
-                    } catch (e) {
-                        console.log(`[yoBot]: Couldn't send kick message to the user ${member.user.name}`);
+                        msg.delete(msg);
+                    } else {
+                        let timeArg = args[1];
+                        let time = 0;
+                        time = parseTime(args[1].toLowerCase());
+                        let banLength = getTimeFromArg(time);
+                        var reason = "";
+                        for (const word in args) {
+                            reason = reason + args[word] + " ";
+                        }
+                        var rsFinal = reason.replace("" + member, "");
+                        rsFinal = rsFinal.replace("<", "");
+                        rsFinal = rsFinal.replace("@", "");
+                        rsFinal = rsFinal.replace("!", "");
+                        rsFinal = rsFinal.replace(">", "");
+                        rsFinal = rsFinal.replace("" + timeArg, "");
+                        msg.delete(msg);
+                        try {
+                            member.send(new MessageEmbed()
+                            .setTitle("**Ban**")
+                            .setDescription(`**You have been banned in ${msg.guild.name} for ${banLength}!**\n**You were banned for:** ${rsFinal}`)
+                            .setFooter(footer)
+                            .setColor(embedColor));
+                        } catch (e) {
+                            utils.loginconsole(`Couldn't send kick message to the user ${member.user.name}`);
+                        }
+                        msg.channel.send(new MessageEmbed()
+                        .setTitle("**Ban**")
+                        .setDescription(`(:white_check_mark:) ${member} has been banned for **${rsFinal}**. (${banLength})`)
+                        .setFooter(footer)
+                        .setColor(embedColor));
+                        msg.guild.members.ban(member, {
+                            days: time,
+                            reason: rsFinal
+                        }).then(() => {
+                            const logmsg = `[${msg.guild.name}], ${msg.author.username} has temp-banned ${member.user.username}`
+                            utils.loginconsole(logmsg);
+                        });
+                        const date = new Date();
+                        const name = member.user.username;
+                        utils.logpunishment(msg, name, "Temp-Ban", rsFinal, banLength, date);
                     }
-                    msg.channel.send(new MessageEmbed()
-                    .setTitle("**Ban**")
-                    .setDescription(`(:white_check_mark:) ${member} has been banned for **${rsFinal}**. (${banLength})`)
-                    .setFooter(footer)
-                    .setColor(embedColor));
-                    msg.guild.members.ban(member, {
-                        days: time,
-                        reason: rsFinal
-                    }).then(() => {
-                        const logmsg = `[${msg.guild.name}], ${msg.author.username} has temp-banned ${member.user.username}`
-                        utils.loginconsole(logmsg);
-                    });
-                    const date = new Date();
-                    const name = member.user.username;
-                    utils.logpunishment(msg, name, "Warn", rsFinal, banLength, date);
                 }
             }
         }

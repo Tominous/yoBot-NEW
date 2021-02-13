@@ -84,7 +84,7 @@ module.exports = {
                         .setFooter(footer)
                         .setColor(embedColor));
                     } catch (e) {
-                        console.log(`[yoBot]: Couldn't send kick message to the user ${member.user.name}`);
+                        utils.loginconsole(`Couldn't send mute message to the user ${member.user.name}`);
                     }
                     member.roles.add(muteRole);
                     const date = new Date();

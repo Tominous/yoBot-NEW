@@ -16,7 +16,5 @@ module.exports = {
         .setDescription("**Prefix:** `^`\n```yaml\nCommands:\n- bot\n- userinfo\n- serverinfo\n- say\n- bonk\n- warn\n- tempmute\n- mute\n- kick\n- tempban\n- ban\n```\n(Requested By: <@" + msg.author.id + ">)")
         .setFooter(footer)
         .setColor(embedColor));
-        const logmsg = `[${msg.guild.name}], ${msg.author.username} has run the ^help command.`
-        utils.loginconsole(logmsg);
     }
 }

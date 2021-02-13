@@ -36,12 +36,13 @@ module.exports = {
                     .setColor(embedColor));
                     msg.delete(msg);
                 } else {
-                    if (member.roles.highest >= msg.member.roles.highest || msg.guild.owner.id === member.user.id || member.hasPermission("ADMINISTRATOR")) {
+                    if (msg.guild.owner.id === member.user.id || member.hasPermission("ADMINISTRATOR")) {
                         msg.channel.send(new MessageEmbed()
                         .setTitle("**Ban**")
                         .setDescription("(:x:) You cannot ban this user.")
                         .setFooter(footer)
                         .setColor(embedColor));
+                        msg.delete(msg);
                     } else {
                         var reason = "";
                         for (const word in args) {
@@ -59,7 +60,7 @@ module.exports = {
                             .setFooter(footer)
                             .setColor(embedColor));
                         } catch (e) {
-                            console.log(`[yoBot]: Couldn't send ban message to the user ${member.user.name}`);
+                            utils.loginconsole(`Couldn't send ban message to the user ${member.user.name}`);
                         }
                         msg.delete(msg);
                         msg.channel.send(new MessageEmbed()

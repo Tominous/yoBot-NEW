@@ -7,7 +7,7 @@ const utils = require("../Utils/Utils.js");
 module.exports = {
     memberjoin: function(member) {
         const guild = member.guild;
-        const name = "**User: " + msg.author.username + "**";
+        const name = "**User: " + member.username + "**";
         const type = "Member Joined"
         const date = new Date();
         const details = "User joined server."
@@ -16,7 +16,7 @@ module.exports = {
 
     memberleave: function(member) {
         const guild = member.guild;
-        const name = "**User: " + msg.author.username + "**";
+        const name = "**User: " + member.username + "**";
         const type = "Member Leave"
         const date = new Date();
         const details = "User left server."

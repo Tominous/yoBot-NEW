@@ -16,7 +16,5 @@ module.exports = {
         .setDescription("**Bot Author:** Yochran\n**Bot Version:** 2.0\n\n**__Stats for nerds__:**\n\n**Language:** JavaScript (Node.JS/Discord.JS)\n**IDE Coded In:** Visual Studio Code\n\n(Requested By: <@" + msg.author.id + ">)")
         .setFooter(footer)
         .setColor(embedColor));
-        const logmsg = `[${msg.guild.name}], ${msg.author.username} has run the ^bot command.`
-        utils.loginconsole(logmsg);
     }
 }

@@ -52,7 +52,7 @@ module.exports = {
                         .setFooter(footer)
                         .setColor(embedColor));
                     } catch (e) {
-                        console.log(`[yoBot]: Couldn't send kick message to the user ${member.user.name}`);
+                        utils.loginconsole(`Couldn't send kick message to the user ${member.user.name}`);
                     }
                     msg.delete(msg);
                     msg.channel.send(new MessageEmbed()

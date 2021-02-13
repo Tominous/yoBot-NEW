@@ -41,7 +41,7 @@ module.exports = {
                         .setFooter(footer)
                         .setColor(embedColor));
                     } catch (e) {
-                        console.log(`[yoBot]: Couldn't send bonk message to the user ${member.user.name}`);
+                        utils.loginconsole(`Couldn't send bonk message to the user ${member.user.name}`);
                     }
                     const logmsg = `[${msg.guild.name}], ${msg.author.username} has bonked ${member.user.username}`
                     utils.loginconsole(logmsg);
