@@ -14,7 +14,6 @@ The goal of this bot is to make it so that if you use this bot in your server, y
   - ^userinfo [user]
   - ^serverinfo
   - ^bot
-Punishments:
   - ^warn <member> <reason>
   - ^tempmute <member> <time> <reason>
   - ^mute <member> <reason>
@@ -26,6 +25,9 @@ Punishments:
   - ^purge <amount>
   - ^ping
   - ^poll
+  - ^announce <message>
+  - ^setactionschannel
+  - ^setpunishmentschannel
   
 ### Listeners:
   - Action listeners, such as join/leaves, role/channel create/deletes, and message deletes.
