@@ -1,39 +1,24 @@
 const Discord = require("discord.js");
-const bot = new Discord.Client();
 const { MessageEmbed } = require("discord.js");
 
 const utils = require("../Utils/Utils.js");
 const config = require("../config.json");
 
-const footer = config.Footer;
-const embedColor = config.EmbedColor;
-
 module.exports = {
     warn: function(msg, args) {
         if (!msg.member.hasPermission("MUTE_MEMBERS")) return;
         if (args.length === 0 | args.length === 1) {
-            msg.channel.send(new MessageEmbed()
-            .setTitle("**Incorrect Usage!**")
-            .setDescription("```css\n^warn <member> <reason>\n```")
-            .setFooter(footer)
-            .setColor(embedColor));
+            msg.delete(msg);
+            utils.sendMessage(msg, "Incorrect Usage!", "```css\n^warn <member> <reason>\n```");
         } else {
             const member = msg.mentions.members.first();
             if (member == null) {
-                msg.channel.send(new MessageEmbed()
-                .setTitle("**Warn**")
-                .setDescription("(:x:) User must be a mention.")
-                .setFooter(footer)
-                .setColor(embedColor));
                 msg.delete(msg);
+                utils.sendMessage(msg, "Warn", "(:x:) User must be a mention.");
             } else {
                 if (args[0].toLowerCase() === "@everyone" || args[0].toLowerCase() === "@here") {
-                    msg.channel.send(new MessageEmbed()
-                    .setTitle("**Warn**")
-                    .setDescription("(:x:) User cannot be those mentions.")
-                    .setFooter(footer)
-                    .setColor(embedColor));
                     msg.delete(msg);
+                    utils.sendMessage(msg, "Warn", "(:x:) User cannot be that mention.");
                 } else {
                     var reason = "";
                     for (const word in args) {
@@ -42,17 +27,15 @@ module.exports = {
                     var rsFinal = reason.replace("" + member, "");
                     rsFinal = rsFinal.replace("<@!>", "");
                     msg.delete(msg);
-                    msg.channel.send(new MessageEmbed()
-                    .setTitle("**Warn**")
-                    .setDescription(`(:white_check_mark:) ${member} has been warned for **${rsFinal}**.`)
-                    .setFooter(footer)
-                    .setColor(embedColor));
+                    utils.sendMessage(msg, "Warn", `(:white_check_mark:) ${member} has been warned for **${rsFinal}**.`)
                     try {
                         member.send(new MessageEmbed()
                         .setTitle("**Warn**")
                         .setDescription(`**You have been warned in ${msg.guild.name}!**\n**You were warned for:** ${rsFinal}`)
-                        .setFooter(footer)
-                        .setColor(embedColor));
+                        .setAuthor(msg.author.username, msg.author.displayAvatarURL())
+                        .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?s=400&u=cc5aee06e85b4ca705b1b989d4b974e5b3346870&v=4")
+                        .setColor(config.EmbedColor)
+                        .setTimestamp());
                     } catch (e) {
                         utils.loginconsole(`Couldn't send warn message to the user ${member.user.name}`);
                     }

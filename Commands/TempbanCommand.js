@@ -5,44 +5,25 @@ const { MessageEmbed } = require("discord.js");
 const config = require("../config.json");
 const utils = require("../Utils/Utils.js");
 
-const footer = config.Footer;
-const embedColor = config.EmbedColor;
-
 module.exports = {
     tempban: function(msg, args) {
         if (!msg.member.hasPermission("BAN_MEMBERS")) return;
         if (args.length === 0 || args.length === 1) {
-            msg.channel.send(new MessageEmbed()
-            .setTitle("**Incorrect Usage!**")
-            .setDescription("```css\n^tempban <member> <time> <reason>\n```")
-            .setFooter(footer)
-            .setColor(embedColor))
-            msg.delete(msg);;
+            msg.delete(msg);
+            utils.sendMessage(msg, "Incorrect Usage!", "```css\n^tempban <member> <time> <reason>\n```");
         } else {
             const member = msg.mentions.members.first();
             if (member == null) {
-                msg.channel.send(new MessageEmbed()
-                .setTitle("**Ban**")
-                .setDescription("(:x:) User must be a mention.")
-                .setFooter(footer)
-                .setColor(embedColor));
                 msg.delete(msg);
+                utils.sendMessage(msg, "Temp-Ban", "(:x:) User must be a mention.");
             } else {
                 if (args[0].toLowerCase() === "@everyone" || args[0].toLowerCase() === "@here") {
-                    msg.channel.send(new MessageEmbed()
-                    .setTitle("**Ban**")
-                    .setDescription("(:x:) User cannot be those mentions.")
-                    .setFooter(footer)
-                    .setColor(embedColor));
                     msg.delete(msg);
+                    utils.sendMessage(msg, "Temp-Ban", "(:x:) User cannot be that mention.");
                 } else {
                     if (msg.guild.owner.id === member.user.id || member.hasPermission("ADMINISTRATOR")) {
-                        msg.channel.send(new MessageEmbed()
-                        .setTitle("**Ban**")
-                        .setDescription("(:x:) You cannot ban this user.")
-                        .setFooter(footer)
-                        .setColor(embedColor));
                         msg.delete(msg);
+                        utils.sendMessage(msg, "Temp-Ban", "(:x:) You cannot ban this user.");
                     } else {
                         let timeArg = args[1];
                         let time = 0;
@@ -61,18 +42,16 @@ module.exports = {
                         msg.delete(msg);
                         try {
                             member.send(new MessageEmbed()
-                            .setTitle("**Ban**")
-                            .setDescription(`**You have been banned in ${msg.guild.name} for ${banLength}!**\n**You were banned for:** ${rsFinal}`)
-                            .setFooter(footer)
-                            .setColor(embedColor));
+                            .setTitle("**Temp-Ban**")
+                            .setAuthor(msg.author.username, msg.author.displayAvatarURL())
+                            .setDescription(`**You have been temp-anned in ${msg.guild.name} for ${banLength}!**\n**You were banned for:** ${rsFinal}`)
+                            .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?s=460&u=cc5aee06e85b4ca705b1b989d4b974e5b3346870&v=4")
+                            .setTimestamp()
+                            .setColor(config.EmbedColor));
                         } catch (e) {
                             utils.loginconsole(`Couldn't send kick message to the user ${member.user.name}`);
                         }
-                        msg.channel.send(new MessageEmbed()
-                        .setTitle("**Ban**")
-                        .setDescription(`(:white_check_mark:) ${member} has been banned for **${rsFinal}**. (${banLength})`)
-                        .setFooter(footer)
-                        .setColor(embedColor));
+                        utils.sendMessage(msg, "Temp-Ban", `(:white_check_mark:) ${member} has been banned for **${rsFinal}**. (${banLength})`);
                         msg.guild.members.ban(member, {
                             days: time,
                             reason: rsFinal

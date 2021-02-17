@@ -1,12 +1,7 @@
 const Discord = require("discord.js");
-const bot = new Discord.Client();
-const { MessageEmbed } = require("discord.js");
 
 const config = require("../config.json");
 const utils = require("../Utils/Utils.js");
-
-const footer = config.Footer;
-const embedColor = config.EmbedColor;
 
 module.exports = {
     userinfo: function(msg, args) {
@@ -16,9 +11,7 @@ module.exports = {
             const tag = msg.author.tag;
             const serverJoinDate = msg.guild.members.cache.get(msg.author.id).joinedAt;
             msg.delete(msg);
-            msg.channel.send(new MessageEmbed().setTitle("**User Info:**")
-            .setDescription(`**Account Created:** ${accountCreatedDate}\n**Name:** ${username}\n**Tag:** ${tag}\n**Joined Server:** ${serverJoinDate}\n \n(Requested By: <@${msg.author.id}>)`)
-            .setFooter(footer).setColor(embedColor));
+            utils.sendMessage(msg, "User Info:", `**Account Created:** ${accountCreatedDate}\n**Name:** ${username}\n**Tag:** ${tag}\n**Joined Server:** ${serverJoinDate}`);
         } else if (args.length === 1) {
             const member = msg.mentions.members.first();
             if (member != null) {
@@ -27,16 +20,14 @@ module.exports = {
                 const tag = member.user.tag;
                 const serverJoinDate = msg.guild.members.cache.get(member.id).joinedAt;
                 msg.delete(msg);
-                msg.channel.send(new MessageEmbed().setTitle(`**${username}'s User Info:**`)
-                .setDescription(`**Account Created:** ${accountCreatedDate}\n**Name:** ${username}\n**Tag:** ${tag}\n**Joined Server:** ${serverJoinDate}\n \n(Requested By: <@${msg.author.id}>)`)
-                .setFooter(footer).setColor(embedColor));
+                utils.sendMessage(msg, `**${username}'s User Info:**`, `**Account Created:** ${accountCreatedDate}\n**Name:** ${username}\n**Tag:** ${tag}\n**Joined Server:** ${serverJoinDate}`);
             } else {
                 msg.delete(msg);
-                msg.channel.send(new MessageEmbed().setTitle("**Incorrect Usage!**").setDescription("```css\n^user [member]\n```\n(Requested By: <@" + msg.author.id + ">)").setFooter(footer).setColor(embedColor));
+                utils.sendMessage(msg, "Incorrect Usage!", "```css\n^user [member]\n```");
             }
         } else {
             msg.delete(msg);
-            msg.channel.send(new MessageEmbed().setTitle("**Incorrect Usage!**").setDescription("```css\n^user [member]\n```\n(Requested By: <@" + msg.author.id + ">)").setFooter(footer).setColor(embedColor));
+            utils.sendMessage(msg, "Incorrect Usage!", "```css\n^user [member]\n```");
         }
     }
 }

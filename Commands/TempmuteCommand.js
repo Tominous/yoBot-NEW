@@ -5,36 +5,21 @@ const { MessageEmbed } = require("discord.js");
 const config = require("../config.json");
 const utils = require("../Utils/Utils.js");
 
-const footer = config.Footer;
-const embedColor = config.EmbedColor;
-
 module.exports = {
     tempmute: function(msg, args) {
         if (!msg.member.hasPermission("MUTE_MEMBERS")) return;
         if (args.length === 0 || args.length === 1) {
-            msg.channel.send(new MessageEmbed()
-            .setTitle("**Incorrect Usage!**")
-            .setDescription("```css\n^tempmute <member> <time> <reason>\n```")
-            .setFooter(footer)
-            .setColor(embedColor))
-            msg.delete(msg);;
+            msg.delete(msg);
+            utils.sendMessage(msg, "Incorrect Usage!", "```css\n^tempmute <member> <time> <reason>\n```")
         } else {
             const member = msg.mentions.members.first();
             if (member == null) {
-                msg.channel.send(new MessageEmbed()
-                .setTitle("**Mute**")
-                .setDescription("(:x:) User must be a mention.")
-                .setFooter(footer)
-                .setColor(embedColor));
                 msg.delete(msg);
+                utils.sendMessage(msg, "Mute", "(:x:) User must be a mention.");
             } else {
                 if (args[0].toLowerCase() === "@everyone" || args[0].toLowerCase() === "@here") {
-                    msg.channel.send(new MessageEmbed()
-                    .setTitle("**Mute**")
-                    .setDescription("(:x:) User cannot be those mentions.")
-                    .setFooter(footer)
-                    .setColor(embedColor));
                     msg.delete(msg);
+                    utils.sendMessage(msg, "Mute", "(:x:) User cannot be that mention.");
                 } else {
                     let timeArg = args[1];
                     let time = 0;
@@ -67,27 +52,20 @@ module.exports = {
                                 })
                             })
                         } catch (e) {
-                            msg.channel.send(new MessageEmbed()
-                            .setTitle("**Mute**")
-                            .setDescription("(:x:) Muted role couldn't be created. Ensure that I have administrator permissions.")
-                            .setFooter(footer)
-                            .setColor(embedColor));
                             msg.delete(msg);
-                            return;
+                            utils.sendMessage(msg, "Mute", "(:x:) Muted role couldn't be created. Ensure that I have administrator permissions.");
                         }
                     }
                     msg.delete(msg);
-                    msg.channel.send(new MessageEmbed()
-                    .setTitle("**Mute**")
-                    .setDescription(`(:white_check_mark:) ${member} has been muted for **${rsFinal}**. (${mutedLength})`)
-                    .setFooter(footer)
-                    .setColor(embedColor));
+                    utils.sendMessage(msg, "Mute", `(:white_check_mark:) ${member} has been muted for **${rsFinal}**. (${mutedLength})`);
                     try {
                         member.send(new MessageEmbed()
                         .setTitle("**Mute**")
+                        .setAuthor(msg.author.username, msg.author.displayAvatarURL())
                         .setDescription(`**You have been muted in ${msg.guild.name} for ${mutedLength}!**\n**You were muted for:** ${rsFinal}`)
-                        .setFooter(footer)
-                        .setColor(embedColor));
+                        .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?s=460&u=cc5aee06e85b4ca705b1b989d4b974e5b3346870&v=4")
+                        .setColor(config.EmbedColor)
+                        .setTimeout());
                     } catch (e) {
                         utils.loginconsole(`Couldn't send temp-mute message to the user ${member.user.name}`);
                     }

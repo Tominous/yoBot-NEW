@@ -3,22 +3,16 @@ const bot = new Discord.Client();
 
 const config = require("../config.json");
 
-const footer = config.Footer;
-const embedColor = config.EmbedColor;
-
 const { MessageEmbed } = require("discord.js");
+const Utils = require("../Utils/Utils");
 
 module.exports = {
     poll: function(msg, args) {
         let pollChannel = msg.guild.channels.cache.find(c => c.name.toLowerCase() === "polls");
         if (msg.channel.id === pollChannel.id) {
             if (args.length < 3) {
-                msg.channel.send(new MessageEmbed()
-                .setTitle("**Incorrect Usage!**")
-                .setDescription("```css\n^poll <choice1> <choice2> <message>```\n(Requested By: <@" + msg.author.id + ">)")
-                .setFooter(footer)
-                .setColor(embedColor));
                 msg.delete(msg);
+                Utils.sendMessage(msg, "Incorrect Usage!", "```css\n^poll <choice1> <choice2> <message>```");
             } else {
                 const choice1 = args[0];
                 const choice2 = args[1];
@@ -32,12 +26,7 @@ module.exports = {
                 }
 
                 msg.delete(msg);
-
-                msg.channel.send(new MessageEmbed()
-                .setTitle("**Poll:**")
-                .setDescription(`${message}\n**Vote :white_check_mark: for ${choice1}**\n**Vote :x: for ${choice2}**`)
-                .setFooter(footer)
-                .setColor(embedColor));
+                Utils.sendMessage(msg, "Poll:", `${message}\n**Vote :white_check_mark: for ${choice1}**\n**Vote :x: for ${choice2}**`);
 
                 setTimeout(() => {
                     msg.channel.lastMessage.react("✅");

@@ -8,9 +8,6 @@ const utils = require("../yoBot/Utils/Utils.js");
 const actionlisteners = require("../yoBot/Listeners/ActionListeners.js");
 const botjoinlistener = require("../yoBot/Listeners/BotJoinListener.js");
 
-const embedColor = config.EmbedColor;
-const footer = config.Footer;
-
 const help = require("../yoBot/Commands/HelpCommand.js");
 const botcmd = require("../yoBot/Commands/BotCommand.js");
 const userinfo = require("../yoBot/Commands/UserInfoCommand.js");
@@ -29,6 +26,9 @@ const avatar = require("./Commands/AvatarCommand.js");
 const poll = require("../yoBot/Commands/PollCommand.js");
 const purge = require("./Commands/PurgeCommand.js");
 const ping = require("./Commands/PingCommand.js");
+const AnnounceCommand = require("./Commands/AnnounceCommand");
+const SetActionsChannel = require("./Commands/SetActionsChannel");
+const SetPunishmentsChannel = require("./Commands/SetPunishmentsChannel");
 
 var commandList = [];
 
@@ -42,7 +42,7 @@ bot.once("ready", () => {
         if (ChannelMapping) {
             let guildsAmt = 0;
             bot.guilds.cache.forEach((guild) => {
-                guildsAmt = guildsAmt + 1;
+                guildsAmt++;
                 const name = guild.name;
                 const id = guild.id;
                 utils.loginconsole("Guild " + guildsAmt + ":\n - Name: " + name + "\n - ID: " + id);
@@ -56,6 +56,7 @@ bot.once("ready", () => {
         } else {
             let guildsAmt = 0;
             bot.guilds.cache.forEach((guild) => {
+                guildsAmt++;
                 const name = guild.name;
                 const id = guild.id;
                 utils.loginconsole("Guild " + guildsAmt + ":\n - Name: " + name + "\n - ID: " + id);
@@ -65,8 +66,18 @@ bot.once("ready", () => {
     bot.user.setStatus("dnd");
     bot.user.setActivity("https://github.com/Yochran/vCores", {type: "WATCHING"});
     try {
+        let guildsAmt = 0;
+        bot.guilds.cache.forEach((guild) => {
+            guildsAmt++;
+        });
         let enableChannel = bot.channels.cache.get(config.EnableChannel);
-        enableChannel.send(new MessageEmbed().setTitle("**yoBot**").setDescription("yoBot v2.0 by Yochran has enabled into " + guildsAmt + " servers").setFooter(footer).setColor(embedColor));
+        enableChannel.send(new MessageEmbed()
+        .setTitle("**yoBot**")
+        .setAuthor("yoBot", bot.user.displayAvatarURL())
+        .setDescription("yoBot v2.0 by Yochran has enabled into " + guildsAmt + " servers.")
+        .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?s=460&u=cc5aee06e85b4ca705b1b989d4b974e5b3346870&v=4")
+        .setColor(config.EmbedColor)
+        .setTimestamp());
     } catch (err) {
         utils.loginconsole("(Error) Error sending startup message in Bot Tests. (Channel doesn't exist/bot isn't in that server.)");
     }
@@ -151,6 +162,19 @@ bot.on("message", (msg) => {
         case "ping":
             ping.ping(msg);
             break;
+        case "announce":
+            AnnounceCommand.announce(msg, args);
+            break;
+        case "setactions":
+        case "sac":
+        case "setactionschannel":
+            SetActionsChannel.setactionschannel(msg);
+            break;
+        case "setpunishments":
+        case "spc":
+        case "setpunishmentschannel":
+            SetPunishmentsChannel.setpunishmentschannel(msg);
+            break;
     }
 
     if (commandList.includes(command)) {
@@ -173,7 +197,11 @@ bot.on("roleDelete", (role) => {
     actionlisteners.roledelete(role);
 })
 bot.on("messageDelete", (msg) => {
-    actionlisteners.msgdelete(msg);
+    try {
+        actionlisteners.msgdelete(msg);
+    } catch (err) {
+        utils.loginconsole("Error while sending action log. (Message was an embed.)");
+    }
 })
 
 // Bot Join Listener

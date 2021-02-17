@@ -5,7 +5,7 @@
     "ChannelMapping" : false,
     "EnableChannel" : "758680334698414081",
 
-    "EmbedColor" : "BLACK",
+    "EmbedColor" : "ORANGE",
     "Footer" : "https://github.com/Yochran",
 
     "Commands" : [
@@ -30,6 +30,13 @@
         "poll",
         "clear",
         "purge",
-        "ping"
+        "ping",
+        "announce",
+        "setactions",
+        "sac",
+        "setactionschannel",
+        "setpunishments",
+        "spc",
+        "setpunishmentschannel"
     ]
 }

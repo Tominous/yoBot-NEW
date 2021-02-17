@@ -5,36 +5,21 @@ const { MessageEmbed } = require("discord.js");
 const config = require("../config.json");
 const utils = require("../Utils/Utils.js");
 
-const footer = config.Footer;
-const embedColor = config.EmbedColor;
-
 module.exports = {
     kick: function(msg, args) {
         if (!msg.member.hasPermission("KICK_MEMBERS")) return;
         if (args.length === 0 | args.length === 1) {
-            msg.channel.send(new MessageEmbed()
-            .setTitle("**Incorrect Usage!**")
-            .setDescription("```css\n^kick <member> <reason>\n```")
-            .setFooter(footer)
-            .setColor(embedColor));
             msg.delete(msg);
+            utils.sendMessage(msg, "Incorrect Usage!", "```css\n^kick <member> <reason>\n```");
         } else {
             const member = msg.mentions.members.first();
             if (member == null) {
-                msg.channel.send(new MessageEmbed()
-                .setTitle("**Kick**")
-                .setDescription("(:x:) User must be a mention.")
-                .setFooter(footer)
-                .setColor(embedColor));
                 msg.delete(msg);
+                utils.sendMessage(msg, "Kick", "(:x:) User must be a mention.");
             } else {
                 if (args[0].toLowerCase() === "@everyone" || args[0].toLowerCase() === "@here") {
-                    msg.channel.send(new MessageEmbed()
-                    .setTitle("**Kick**")
-                    .setDescription("(:x:) User cannot be those mentions.")
-                    .setFooter(footer)
-                    .setColor(embedColor));
                     msg.delete(msg);
+                    utils.sendMessage(msg, "Kick", "(:x:) User cannot be that mention.");
                 } else {
                     var reason = "";
                     for (const word in args) {
@@ -48,18 +33,16 @@ module.exports = {
                     try {
                         member.send(new MessageEmbed()
                         .setTitle("**Kick**")
+                        .setAuthor(msg.author.username, msg.author.displayAvatarURL())
                         .setDescription(`**You have been kicked from ${msg.guild.name}!**\n**You were kicked for:** ${rsFinal}`)
-                        .setFooter(footer)
-                        .setColor(embedColor));
+                        .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?s=460&u=cc5aee06e85b4ca705b1b989d4b974e5b3346870&v=4")
+                        .setColor(config.EmbedColor)
+                        .setTimestamp());
                     } catch (e) {
                         utils.loginconsole(`Couldn't send kick message to the user ${member.user.name}`);
                     }
                     msg.delete(msg);
-                    msg.channel.send(new MessageEmbed()
-                    .setTitle("**Kick**")
-                    .setDescription(`(:white_check_mark:) ${member} has been kicked for **${rsFinal}**.`)
-                    .setFooter(footer)
-                    .setColor(embedColor));
+                    utils.sendMessage(msg, "Kick", `(:white_check_mark:) ${member} has been kicked for **${rsFinal}**.`)
                     member.kick(rsFinal).then(() => {
                         const logmsg = `[${msg.guild.name}], ${msg.author.username} has kicked ${member.user.username}`
                         utils.loginconsole(logmsg);
@@ -67,7 +50,6 @@ module.exports = {
                     const date = new Date();
                     const name = member.user.username;
                     utils.logpunishment(msg, name, "Kick", rsFinal, "N/A", date);
-                    
                 }
             }
         }

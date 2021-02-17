@@ -17,7 +17,6 @@ module.exports = {
             members++;
         });
         msg.delete(msg);
-        msg.channel.send(new MessageEmbed().setTitle("**Server Info:**").setDescription(`**Created:** ${createdDate}\n**Owner:** <@${ownerid}>\n**Members:** ${members}\n \n(Requested By: <@${msg.author.id}>)`)
-        .setFooter(footer).setColor(embedColor));
+        utils.sendMessage(msg, "Server Info", `**Created:** ${createdDate}\n**Owner:** <@${ownerid}>\n**Members:** ${members}`);
     }
 }
