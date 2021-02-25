@@ -8,8 +8,14 @@ const Utils = require("../Utils/Utils");
 
 module.exports = {
     ping: function(msg) {
-        msg.delete(msg);
-        Utils.sendMessage(msg, "Ping", "Pinging...").then((sent) => {
+        msg.channel.send(new MessageEmbed()
+        .setTitle("**Ping**")
+        .setDescription("Pinging...")
+        .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?s=400&u=cc5aee06e85b4ca705b1b989d4b974e5b3346870&v=4")
+        .setColor(config.EmbedColor)
+        .setAuthor(msg.author.username, msg.author.displayAvatarURL())
+        .setTimestamp()).then((sent) => {
+            msg.delete(msg);
             const ping = Math.floor(Math.round(sent.createdTimestamp - msg.createdTimestamp));
             setTimeout(() => {
                 msg.channel.lastMessage.delete(msg.channel.lastMessage);
