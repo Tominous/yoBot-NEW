@@ -1,51 +1,57 @@
-const Discord = require("discord.js");
 const { MessageEmbed } = require("discord.js");
 
-const utils = require("../Utils/Utils.js");
+const Utils = require("../Utils/Utils.js");
 const config = require("../config.json");
 
 module.exports = {
-    warn: function(msg, args) {
+    Execute: function(msg, args) {
         if (!msg.member.hasPermission("MUTE_MEMBERS")) return;
+
+        msg.delete(msg);
+
         if (args.length === 0 | args.length === 1) {
-            msg.delete(msg);
-            utils.sendMessage(msg, "Incorrect Usage!", "```css\n^warn <member> <reason>\n```");
-        } else {
-            const member = msg.mentions.members.first();
-            if (member == null) {
-                msg.delete(msg);
-                utils.sendMessage(msg, "Warn", "(:x:) User must be a mention.");
+            Utils.sendMessage(msg, "Incorrect Usage!", "```css\n^warn <member> <reason>\n```");
+            return;
+        }
+
+        const member = msg.mentions.members.first();
+
+        if (!member) {
+            Utils.sendMessage(msg, "Warn", "(:x:) Invalid User (Must be a mention).");
+            return;
+        }
+
+        if (args[0].toLowerCase() === "@everyone" || args[0].toLowerCase() === "@here") {
+            Utils.sendMessage(msg, "Warn", "(:x:) User cannot be that mention.");
+            return;
+        }
+
+        var reason = "";
+        for (var i = 1; i < args.length; i++) {
+            if (reason.length === 0) {
+                reason = args[i];
             } else {
-                if (args[0].toLowerCase() === "@everyone" || args[0].toLowerCase() === "@here") {
-                    msg.delete(msg);
-                    utils.sendMessage(msg, "Warn", "(:x:) User cannot be that mention.");
-                } else {
-                    var reason = "";
-                    for (const word in args) {
-                        reason = reason + args[word] + " ";
-                    }
-                    var rsFinal = reason.replace("" + member, "");
-                    rsFinal = rsFinal.replace("<@!>", "");
-                    msg.delete(msg);
-                    utils.sendMessage(msg, "Warn", `(:white_check_mark:) ${member} has been warned for **${rsFinal}**.`)
-                    try {
-                        member.send(new MessageEmbed()
-                        .setTitle("**Warn**")
-                        .setDescription(`**You have been warned in ${msg.guild.name}!**\n**You were warned for:** ${rsFinal}`)
-                        .setAuthor(msg.author.username, msg.author.displayAvatarURL())
-                        .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?s=400&u=cc5aee06e85b4ca705b1b989d4b974e5b3346870&v=4")
-                        .setColor(config.EmbedColor)
-                        .setTimestamp());
-                    } catch (e) {
-                        utils.loginconsole(`Couldn't send warn message to the user ${member.user.name}`);
-                    }
-                    const date = new Date();
-                    const name = member.user.username;
-                    utils.logpunishment(msg, name, "Warn", rsFinal, "Permanent", date);
-                    const logmsg = `[${msg.guild.name}], ${msg.author.username} has warned ${member.user.username}`
-                    utils.loginconsole(logmsg);
-                }
+                reason = reason + " " + args[i];
             }
         }
+
+        Utils.sendMessage(msg, "Warn", `(:white_check_mark:) ${member} has been warned for **${reason}**.`);
+
+        try {
+            const embed = new MessageEmbed()
+            .setTitle("**Warn**")
+            .setDescription(`**You have been warned in ${msg.guild.name}!**\n**You were warned for:** ${reason}`)
+            .setAuthor(msg.author.username, msg.author.displayAvatarURL())
+            .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?s=400&u=cc5aee06e85b4ca705b1b989d4b974e5b3346870&v=4")
+            .setColor(config.EmbedColor)
+            .setTimestamp();
+
+            member.send(embed);
+        } catch (e) {
+            Utils.logMessage(`Couldn't send warn message to the user ${member.user.name}`);
+        }
+
+        Utils.logPunishment(msg, member, "Warn", reason, "Permanent", new Date());
+        Utils.logMessage(`[${msg.guild.name}], ${msg.author.username} has warned ${member.user.username}`);
     }
 }

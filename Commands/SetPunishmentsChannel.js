@@ -1,23 +1,22 @@
-const data = require("../data.json");
 const fs = require("fs");
 const Utils = require("../Utils/Utils");
+const Data = require("../data.json");
 
 module.exports = {
-    setpunishmentschannel: function(msg) {
+    Execute: function(msg) {
         if (!msg.member.hasPermission("MANAGE_MESSAGES")) return;
 
         msg.delete(msg);
+
         try {
             const channelID = msg.channel.id;
             const guildID = msg.guild.id;
-            const channel = data.Punishments.Channel;
+            const channel = Data.Punishments.Channel;
     
             channel[guildID] = channelID;
     
-            fs.writeFile("data.json", JSON.stringify(data, null, 2), (err) => {
-                if (err) {
-                    Utils.loginconsole("Error while writing to data.json file. (setpunishmentschannel, SetPunishmentsChannel.js).");
-                }
+            fs.writeFile("data.json", JSON.stringify(Data, null, 2), (err) => {
+                if (err) Utils.loginconsole("Error while writing to data.json file. (setpunishmentschannel, SetPunishmentsChannel.js).");
             });
     
             Utils.sendMessage(msg, "Punishments Channel", "(:white_check_mark:) Punishments channel set to current channel.");

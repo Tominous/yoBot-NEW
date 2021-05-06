@@ -1,22 +1,16 @@
-const Discord = require("discord.js");
-const bot = new Discord.Client();
-const { MessageEmbed } = require("discord.js");
-
-const config = require("../config.json");
-const utils = require("../Utils/Utils.js");
-
-const footer = config.Footer;
-const embedColor = config.EmbedColor;
+const Utils = require("../Utils/Utils.js");
 
 module.exports = {
-    serverinfo: function(msg) {
-        const createdDate = msg.guild.createdAt;
-        const ownerid = msg.guild.ownerID;
+    Execute: function(msg) {        
+        msg.delete(msg);
+
         let members = 0;
         msg.guild.members.cache.forEach((member) => {
             members++;
         });
-        msg.delete(msg);
-        utils.sendMessage(msg, "Server Info", `**Created:** ${createdDate}\n**Owner:** <@${ownerid}>\n**Members:** ${members}`);
+
+        const createdAt = `${msg.guild.createdAt.getMonth()}/${msg.guild.createdAt.getDay()}/${msg.guild.createdAt.getFullYear()}`
+
+        Utils.sendMessage(msg, "Server Info", `**Created:** ${createdAt}\n**Owner:** <@${msg.guild.ownerID}>\n**Members:** ${members}`);
     }
 }

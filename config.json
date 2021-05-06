@@ -1,9 +1,6 @@
 {
-    "Token" : "HIDDEN",
+    "Token" : "",
     "Prefix" : "^",
-    "GuildMapping" : false,
-    "ChannelMapping" : false,
-    "EnableChannel" : "758680334698414081",
 
     "EmbedColor" : "ORANGE",
     "Footer" : "https://github.com/Yochran",
