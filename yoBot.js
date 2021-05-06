@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const bot = new Discord.Client();
 
 const config = require("../yoBot/config.json");
+const data = require("./data.json");
 const Utils = require("../yoBot/Utils/Utils.js");
 
 const HelpCommand = require("../yoBot/Commands/HelpCommand.js");
@@ -24,6 +25,7 @@ const PurgeCommand = require("./Commands/PurgeCommand.js");
 const PingCommand = require("./Commands/PingCommand.js");
 const AnnounceCommand = require("./Commands/AnnounceCommand");
 const SetPunishmentsChannel = require("./Commands/SetPunishmentsChannel");
+const GiveawayCommand = require("./Commands/GiveawayCommand");
 
 var commandList = [];
 
@@ -45,7 +47,7 @@ bot.on("message", (msg) => {
 
     const args = msg.content.slice(1).trim().split(" ");
     const command = args.shift().toLowerCase();
-    
+
     switch (command) {
         case "help":
             HelpCommand.Execute(msg);
@@ -113,11 +115,18 @@ bot.on("message", (msg) => {
         case "setpunishmentschannel":
             SetPunishmentsChannel.Execute(msg);
             break;
+        case "giveaway":
+            GiveawayCommand.Execute(msg, args);
+            break;
     }
 
     if (commandList.includes(command)) {
         Utils.logMessage(`[${msg.guild.name}], ${msg.author.username} has run a command. (${command})`);
     }
+});
+
+bot.on("messageReactionAdd", (reaction, member) => {
+    GiveawayCommand.ReactListener(reaction, member);
 })
 
 bot.login(config.Token);

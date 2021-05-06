@@ -26,8 +26,8 @@ module.exports = {
             return;
         }
 
-        var time = Utils.parseMuteTime(args[1].toLowerCase());
-        var timeStr = Utils.getMuteTime(time * 1000);
+        var time = Utils.parseTime(args[1].toLowerCase());
+        var timeStr = Utils.getTimeStr(time * 1000);
 
         var reason = "";
         for (var i = 2; i < args.length; i++) {
@@ -69,7 +69,7 @@ module.exports = {
             .setTimestamp();
 
             member.send(embed);
-        } catch (e) {
+        } catch (err) {
             Utils.logMessage(`Couldn't send temp-mute message to the user ${member.user.name}`);
         }
 

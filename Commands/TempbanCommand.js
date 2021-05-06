@@ -31,8 +31,8 @@ module.exports = {
             return;
         }
 
-        const time = Utils.parseBanTime(args[1].toLowerCase());
-        const timeStr = Utils.getBanTime(time);
+        const time = Utils.parseTime(args[1].toLowerCase());
+        const timeStr = Utils.getTimeStr(time * 1000);
 
         var reason = "";
         for (var i = 2; i < args.length; i++) {
@@ -43,25 +43,31 @@ module.exports = {
             }
         }
 
-        Utils.sendMessage(msg, "Temp-Ban", `(:white_check_mark:) ${member} has been banned for **${reason}**. (${banLength})`);
+        Utils.sendMessage(msg, "Temp-Ban", `(:white_check_mark:) ${member} has been banned for **${reason}**. (${timeStr})`);
 
         try {
             const embed = new MessageEmbed()
             .setTitle("**Temp-Ban**")
             .setAuthor(msg.author.username, msg.author.displayAvatarURL())
-            .setDescription(`**You have been temp-anned in ${msg.guild.name} for ${timeStr}!**\n**You were banned for:** ${reason}`)
+            .setDescription(`**You have been temp-banned in ${msg.guild.name} for ${timeStr}!**\n**You were banned for:** ${reason}`)
             .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?s=460&u=cc5aee06e85b4ca705b1b989d4b974e5b3346870&v=4")
             .setTimestamp()
             .setColor(config.EmbedColor);
 
             member.send(embed);
-        } catch (e) {
+        } catch (err) {
             Utils.logMessage(`Couldn't send kick message to the user ${member.user.name}`);
         }
 
-        msg.guild.members.ban(member, {days: time,reason: reason}).then(() => {
-            Utils.logMessage(`[${msg.guild.name}], ${msg.author.username} has temp-banned ${member.user.username}`);
-        });
+        setTimeout(() => {
+            msg.guild.members.ban(member, {days: null, reason: reason}).then(() => {
+                Utils.logMessage(`[${msg.guild.name}], ${msg.author.username} has temp-banned ${member.user.username}`);
+            });
+        }, 1000);
+        
+        setTimeout(async() => {
+            msg.guild.members.unban(member);
+        }, time * 1000);
 
         Utils.logPunishment(msg, member, "Temp-Ban", reason, timeStr, new Date());
     }

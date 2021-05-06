@@ -52,14 +52,17 @@ module.exports = {
             .setTimestamp();
 
             member.send(embed);
-        } catch (e) {
+        } catch (err) {
             Utils.logMessage(`Couldn't send ban message to the user ${member.user.name}`);
         }
 
-        msg.guild.members.ban(member, {days: null, reason: reason}).then(() => {
-            Utils.logMessage(`[${msg.guild.name}], ${msg.author.username} has perm-banned ${msg.author.username}`);
-        });
-
+        setTimeout(() => {
+            msg.guild.members.ban(member, {days: null, reason: reason}).then(() => {
+                Utils.logMessage(`[${msg.guild.name}], ${msg.author.username} has perm-banned ${msg.author.username}`);
+            });
+    
+        }, 1000);
+        
         Utils.logPunishment(msg, member, "Ban", reason, "Permanent", new Date());
     }
 }

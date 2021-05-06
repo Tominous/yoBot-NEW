@@ -34,6 +34,7 @@
         "setactionschannel",
         "setpunishments",
         "spc",
-        "setpunishmentschannel"
+        "setpunishmentschannel",
+        "giveaway"
     ]
 }

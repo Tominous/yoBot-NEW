@@ -18,7 +18,7 @@ module.exports = {
             return;
         }
 
-        msg.channel.bulkDelete(amount);
+        msg.channel.bulkDelete(amount, true);
 
         setTimeout(() => {
             Utils.sendMessage(msg, "Purge", `(:white_check_mark:) **${amount}** messages successfully purged.`);

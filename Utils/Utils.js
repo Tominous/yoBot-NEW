@@ -31,9 +31,10 @@ module.exports = {
 
         const embed = new MessageEmbed()
         .setTitle(`**${type}**`)
-        .setAuthor(member.user.username, member.user.displayAvatarURL())
+        .setAuthor(msg.author.username, msg.author.displayAvatarURL())
         .addFields(
-            {name: "Executor", value: `__${msg.author.username}__`, inline: true},
+            {name: "Member", value: `__${member.user.username}__`, inline: true},
+            {name: "Member ID:", value: member.id, inline: true},
             {name: "Reason", value: reason, inline: true},
             {name: "Duration", value: duration, inline: true},
             {name: "Date", value: date, inline: true}
@@ -80,42 +81,7 @@ module.exports = {
         msg.channel.send(embed);
     },
 
-    parseBanTime: function(time) {
-        time.toLowerCase();
-
-        if (time.includes("w")) {
-            if (!parseInt(time.split("w")[0])) return undefined;
-
-            const num = time.split("w")[0];
-
-            return num * 7;
-        } else if (time.includes("d")) {
-            if (!parseInt(time.split("d")[0])) return undefined;
-
-            const num = time.split("d")[0];
-
-            return num;
-        } else {
-            return 1;
-        }
-    },
-    
-    getBanTime: function(time) {
-        const days = time;
-
-        var out = "";
-        if (days > 0) {
-            var str = " days";
-            if (days == 1) {
-                str = " day";
-            }
-            out = days + str;
-        }
-
-        return out;
-    },
-
-    parseMuteTime: function(time) {
+    parseTime: function(time) {
         time.toLowerCase();
 
         if (time.includes("w")) {
@@ -153,7 +119,7 @@ module.exports = {
         }
     },
 
-    getMuteTime: function(ms) {
+    getTimeStr: function(ms) {
         const days = Math.floor(ms / (24 * 60 * 60 * 1000));
         const daysms = ms % (24 * 60 * 60 * 1000);
         const hours = Math.floor((daysms) / (60*60*1000));

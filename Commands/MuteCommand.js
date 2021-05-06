@@ -66,7 +66,7 @@ module.exports = {
             .setTimestamp();
 
             member.send(embed);
-        } catch (e) {
+        } catch (err) {
             Utils.logMessage(`Couldn't send mute message to the user ${member.user.name}`);
         }
 

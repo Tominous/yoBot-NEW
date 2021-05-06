@@ -47,7 +47,7 @@ module.exports = {
             .setTimestamp();
 
             member.send(embed);
-        } catch (e) {
+        } catch (err) {
             Utils.logMessage(`Couldn't send kick message to the user ${member.user.name}`);
         }
 
