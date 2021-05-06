@@ -26,3 +26,4 @@ The goal of this bot is to make it so that if you use this bot in your server, y
   - ^poll
   - ^announce \<message\>
   - ^setpunishmentschannel
+  - ^giveaway \<duration\> \<prize\>
