@@ -10,7 +10,7 @@ module.exports = {
         msg.delete(msg);
 
         if (args.length < 1) {
-            Utils.sendMessage(msg, "Incorrect Usage!", "```css\n^announce <message>```");
+            Utils.sendMessage(msg, "Incorrect Usage!", "```yaml\n^announce <message>```\n");
             return;
         }
             

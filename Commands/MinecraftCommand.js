@@ -6,7 +6,7 @@ module.exports = {
         msg.delete(msg);
 
         if (args.length !== 1) {
-            Utils.sendMessage(msg, "Invalid Usage!", "```css\n^minecraft <username>```");
+            Utils.sendMessage(msg, "Invalid Usage!", "```yaml\n^minecraft <username>\n```");
             return;
         }
 

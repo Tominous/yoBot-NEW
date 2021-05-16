@@ -10,7 +10,7 @@ module.exports = {
         msg.delete(msg);
 
         if (args.length < 2) {
-            Utils.sendMessage(msg, "Incorrect Usage!", "```css\n^tempban <member> <time> <reason>\n```");
+            Utils.sendMessage(msg, "Incorrect Usage!", "```yaml\n^tempban <member> <time> <reason>\n```");
             return;
         }
 
@@ -66,7 +66,11 @@ module.exports = {
         }, 1000);
         
         setTimeout(async() => {
-            msg.guild.members.unban(member);
+            try {
+                msg.guild.members.unban(member);
+            } catch (err) {
+                Utils.logMessage(`Couldn't unbam ${member.user.tag} from ${msg.guild.name}, as they are not banned. (They were unbanned manually)`);
+            }
         }, time * 1000);
 
         Utils.logPunishment(msg, member, "Temp-Ban", reason, timeStr, new Date());

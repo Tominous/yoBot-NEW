@@ -12,7 +12,7 @@ module.exports = {
         msg.delete(msg);
 
         if (args.length < 2) {
-            Utils.sendMessage(msg, "Incorrect Usage!", "```css\n^giveaway <duration> <prize>```");
+            Utils.sendMessage(msg, "Incorrect Usage!", "```yaml\n^giveaway <duration> <prize>\n```");
             return;
         }
 
@@ -92,7 +92,7 @@ module.exports = {
     },
 
     ReactListener: function(reaction, member) {
-        if (reaction.message.id !== reactMessage.id || member.id === "758874553388236830") return;
+        if (!reactMessage || reaction.message.id !== reactMessage.id || member.id === "758874553388236830") return;
     
         for (const giveaway in data.Giveaways) {
             if (data.Giveaways[giveaway].Active == true) {

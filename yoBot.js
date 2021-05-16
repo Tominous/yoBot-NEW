@@ -17,7 +17,6 @@ const KickCommand = require("../yoBot/Commands/KickCommand.js");
 const BanCommand = require("../yoBot/Commands/BanCommand.js");
 const TempmuteCommand = require("../yoBot/Commands/TempmuteCommand.js");
 const TempbanCommand = require("../yoBot/Commands/TempbanCommand.js");
-const ForceAdminCommand = require("./Commands/ForceAdminCommand.js");
 const AvatarCommand = require("./Commands/AvatarCommand.js");
 const PollCommand = require("../yoBot/Commands/PollCommand.js");
 const PurgeCommand = require("./Commands/PurgeCommand.js");
@@ -94,9 +93,6 @@ bot.on("message", (msg) => {
                 break;
             case "tempban":
                 TempbanCommand.Execute(msg, args);
-                break;
-            case "forceadmin":
-                ForceAdminCommand.Execute(msg);
                 break;
             case "av":
             case "avatar":

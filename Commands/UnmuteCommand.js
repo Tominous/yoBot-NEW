@@ -10,7 +10,7 @@ module.exports = {
         msg.delete(msg);
 
         if (args.length != 1) {
-            Utils.sendMessage(msg, "Incorrect Usage!", "```css\n^unmute <member>\n```");
+            Utils.sendMessage(msg, "Incorrect Usage!", "```yaml\n^unmute <member>\n```");
             return;
         }
 
@@ -51,6 +51,6 @@ module.exports = {
         }
 
         Utils.logPunishment(msg, member, "Unmute", "N/A", "N/A", new Date());
-        Utils.loginconsole(`[${msg.guild.name}], ${msg.author.username} has unmuted ${member.user.username}`);
+        Utils.logMessage(`[${msg.guild.name}], ${msg.author.username} has unmuted ${member.user.username}`);
     }
 }

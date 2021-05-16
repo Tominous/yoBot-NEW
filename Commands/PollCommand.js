@@ -7,7 +7,7 @@ module.exports = {
         msg.delete(msg);
 
         if (args.length < 3) {
-            Utils.sendMessage(msg, "Incorrect Usage!", "```css\n^poll <choice1> <choice2> <message>```");
+            Utils.sendMessage(msg, "Incorrect Usage!", "```yaml\n^poll <choice1> <choice2> <message>\n```");
             return;
         } 
         

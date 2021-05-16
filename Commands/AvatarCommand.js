@@ -8,7 +8,7 @@ module.exports = {
         msg.delete(msg);
 
         if (args.length > 1) {
-            Utils.sendMessage(msg, "Incorrect Usage!", "```css\n^avatar [member]```");
+            Utils.sendMessage(msg, "Incorrect Usage!", "```yaml\n^avatar [member]\n```");
             return;
         }
 

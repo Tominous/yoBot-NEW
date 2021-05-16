@@ -5,7 +5,7 @@ module.exports = {
         msg.delete(msg);
 
         if (args.length < 1) {
-            Utils.sendMessage(msg, "Incorrect Usage!", "```css\n^say <message>\n```");
+            Utils.sendMessage(msg, "Incorrect Usage!", "```yaml\n^say <message>\n```");
             return;
         }
         

@@ -10,7 +10,7 @@ module.exports = {
         msg.delete(msg);
 
         if (args.length < 2) {
-            Utils.sendMessage(msg, "Incorrect Usage!", "```css\n^tempmute <member> <time> <reason>\n```");
+            Utils.sendMessage(msg, "Incorrect Usage!", "```yaml\n^tempmute <member> <time> <reason>\n```");
             return;
         }
         
@@ -74,7 +74,11 @@ module.exports = {
         }
 
         setTimeout(async() => {
-            member.roles.remove(muteRole);
+            try {
+                member.roles.remove(muteRole);
+            } catch (err) {
+                Utils.logMessage(`Couldn't remove the mute role from ${member.user.tag}, as they did not have it. (They were unmuted manually)`);
+            }
         }, time * 1000);
 
         Utils.logPunishment(msg, member, "Temp-Mute", reason, timeStr, new Date());
