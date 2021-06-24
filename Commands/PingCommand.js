@@ -13,7 +13,7 @@ module.exports = {
         const embed = new MessageEmbed()
         .setTitle("**Ping**")
         .setDescription("Pinging...")
-        .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?s=400&u=cc5aee06e85b4ca705b1b989d4b974e5b3346870&v=4")
+        .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?v=4")
         .setColor(config.EmbedColor)
         .setAuthor(msg.author.username, msg.author.displayAvatarURL())
         .setTimestamp();

@@ -1,8 +1,8 @@
 {
-    "Token" : "",
+    "Token" : "HIDDEN",
     "Prefix" : "^",
 
-    "EmbedColor" : "ORANGE",
+    "EmbedColor" : "BLUE",
     "Footer" : "https://github.com/Yochran",
 
     "Commands" : [
@@ -21,7 +21,6 @@
         "kick",
         "tempban",
         "ban",
-        "forceadmin",
         "av",
         "avatar",
         "poll",
@@ -36,6 +35,8 @@
         "spc",
         "setpunishmentschannel",
         "giveaway",
-        "minecraft"
+        "minecraft",
+        "mc",
+        "skin"
     ]
 }

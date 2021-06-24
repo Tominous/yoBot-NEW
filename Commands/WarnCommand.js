@@ -42,7 +42,7 @@ module.exports = {
             .setTitle("**Warn**")
             .setDescription(`**You have been warned in ${msg.guild.name}!**\n**You were warned for:** ${reason}`)
             .setAuthor(msg.author.username, msg.author.displayAvatarURL())
-            .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?s=400&u=cc5aee06e85b4ca705b1b989d4b974e5b3346870&v=4")
+            .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?v=4")
             .setColor(config.EmbedColor)
             .setTimestamp();
 

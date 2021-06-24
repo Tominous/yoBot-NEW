@@ -1,31 +1,32 @@
-const MCNames = require("mc-names");
 const { MessageEmbed } = require("discord.js");
 const config = require("../config.json");
-const Utils = require("../Utils/Utils.js");
+const fetch = require("node-fetch");
+const Utils = require("../Utils/Utils");
 
 module.exports = {
     Execute: async function(msg, args) {
         msg.delete(msg);
 
         if (args.length !== 1) {
-            Utils.sendMessage(msg, "Incorrect Usage!", "```yaml\n^minecraft <username>\n```");
+            Utils.sendMessage(msg, "Incorrect Usage!", "```yaml\n^skin <username>\n```");
             return;
         }
 
-        const history = await MCNames.getNameHistory(args[0]);
+        const uuidURL = "https://api.mojang.com/users/profiles/minecraft/" + args[0];
 
-        if (!history) {
-            Utils.sendMessage(msg, "Minecraft", "(:x:) Invalid Account.");
+        var uuid;
+        try {
+            uuid = await fetch(uuidURL).then((uuidURL) => uuidURL.json())
+        } catch (err) {
+            console.log(err);
+            Utils.sendMessage(msg, "Skin", "(:x:) Invalid Account.");
             return;
         }
-
-        const names = history.toPages(30, "$username - `$date`");
 
         const embed = new MessageEmbed()
-        .setTitle(`${args[0]}'s Name History`)
-        .setDescription(names.get(1).join("\n"))
+        .setTitle(`${args[0]}'s skin`)
         .setURL("https://namemc.com/profile/" + args[0])
-        .setThumbnail(`https://mc-heads.net/avatar/${history.uuid}/256`)
+        .setImage(`https://visage.surgeplay.com/full/${uuid.id}.png`)
         .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?v=4")
         .setColor(config.EmbedColor)
         .setAuthor(msg.author.username, msg.author.displayAvatarURL())

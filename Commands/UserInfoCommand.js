@@ -33,7 +33,7 @@ module.exports = {
             .setTitle("User Info")
             .setDescription( `**Account Created:** ${accountCreatedDate}\n**Username:** ${username}\n**Tag:** ${msg.author.tag}\n**Joined Server:** ${serverJoinDate}\n**Roles:** ${roles}`)
             .setColor(config.EmbedColor)
-            .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?s=460&u=cc5aee06e85b4ca705b1b989d4b974e5b3346870&v=4")
+            .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?v=4")
             .setAuthor(msg.author.username, msg.author.displayAvatarURL())
             .setTimestamp()
             .setImage(msg.author.displayAvatarURL());
@@ -67,7 +67,7 @@ module.exports = {
             .setTitle(`${member.user.username}'s User Info`)
             .setDescription( `**Account Created:** ${accountCreatedDate}\n**Username:** ${username}\n**Tag:** ${member.user.tag}\n**Joined Server:** ${serverJoinDate}\n**Roles:** ${roles}`)
             .setColor(config.EmbedColor)
-            .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?s=460&u=cc5aee06e85b4ca705b1b989d4b974e5b3346870&v=4")
+            .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?v=4")
             .setAuthor(msg.author.username, msg.author.displayAvatarURL())
             .setTimestamp()
             .setImage(member.user.displayAvatarURL({ format: 'png', size: 128 }));

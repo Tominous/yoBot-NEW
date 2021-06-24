@@ -14,9 +14,13 @@ module.exports = {
         const minute = new Date().getMinutes();
         const hour = new Date().getHours();
 
-        const time = month + "/" + day + "/" + year + ", " + hour + ":" + minute;
+        return month + "/" + day + "/" + year + ", " + hour + ":" + minute;
+    },
 
-        return time;
+    getDate: function() {
+        const fullDate = new Date();
+
+        return `${fullDate.getMonth()}/${fullDate.getDay()}/${fullDate.getFullYear()}`;
     },
 
     logPunishment: function(msg, member, type, reason, duration, date) {
@@ -39,7 +43,7 @@ module.exports = {
             {name: "Duration", value: duration, inline: true},
             {name: "Date", value: date, inline: true}
         )
-        .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?s=460&u=cc5aee06e85b4ca705b1b989d4b974e5b3346870&v=4")
+        .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?v=4")
         .setColor(config.EmbedColor)
         .setTimestamp();
 
@@ -73,7 +77,7 @@ module.exports = {
         const embed = new MessageEmbed()
         .setTitle(`**${title}**`)
         .setDescription(description)
-        .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?s=400&u=cc5aee06e85b4ca705b1b989d4b974e5b3346870&v=4")
+        .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?v=4")
         .setColor(config.EmbedColor)
         .setAuthor(msg.author.username, msg.author.displayAvatarURL())
         .setTimestamp();

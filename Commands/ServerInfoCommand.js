@@ -18,7 +18,7 @@ module.exports = {
         .setTitle("Server Info")
         .setDescription(`**Created:** ${createdAt}\n**Owner:** <@${msg.guild.ownerID}>\n**Members:** ${members}\n**Boosters:** ${msg.guild.premiumSubscriptionCount}\n**Region:** ${msg.guild.region.toUpperCase()}`)
         .setColor(config.EmbedColor)
-        .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?s=460&u=cc5aee06e85b4ca705b1b989d4b974e5b3346870&v=4")
+        .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?v=4")
         .setAuthor(msg.author.username, msg.author.displayAvatarURL())
         .setTimestamp()
         .setImage(msg.guild.iconURL());

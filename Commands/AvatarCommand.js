@@ -17,7 +17,7 @@ module.exports = {
             .setTitle(`**Your Avatar**`)
             .setAuthor(msg.author.username, msg.author.displayAvatarURL())
             .setImage(msg.author.displayAvatarURL({ format: 'png', size: 256 }))
-            .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?s=460&u=cc5aee06e85b4ca705b1b989d4b974e5b3346870&v=4")
+            .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?v=4")
             .setColor(config.EmbedColor)
             .setTimestamp();
 
@@ -35,7 +35,7 @@ module.exports = {
             .setTitle(`**${member.user.username}'s avatar**`)
             .setAuthor(msg.author.username, msg.author.displayAvatarURL())
             .setImage(member.user.displayAvatarURL({ format: 'png', size: 256 }))
-            .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?s=460&u=cc5aee06e85b4ca705b1b989d4b974e5b3346870&v=4")
+            .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?v=4")
             .setColor(config.EmbedColor)
             .setTimestamp();
 

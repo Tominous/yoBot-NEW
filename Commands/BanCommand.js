@@ -47,7 +47,7 @@ module.exports = {
             .setTitle("**Ban**")
             .setAuthor(msg.author.username, msg.author.displayAvatarURL())
             .setDescription(`**You have been banned from ${msg.guild.name}!**\n**You were banned for:** ${reason}`)
-            .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?s=460&u=cc5aee06e85b4ca705b1b989d4b974e5b3346870&v=4")
+            .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?v=4")
             .setColor(config.EmbedColor)
             .setTimestamp();
 

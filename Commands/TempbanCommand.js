@@ -50,7 +50,7 @@ module.exports = {
             .setTitle("**Temp-Ban**")
             .setAuthor(msg.author.username, msg.author.displayAvatarURL())
             .setDescription(`**You have been temp-banned in ${msg.guild.name} for ${timeStr}!**\n**You were banned for:** ${reason}`)
-            .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?s=460&u=cc5aee06e85b4ca705b1b989d4b974e5b3346870&v=4")
+            .setFooter("https://github.com/Yochran", "https://avatars.githubusercontent.com/u/71285258?v=4")
             .setTimestamp()
             .setColor(config.EmbedColor);
 
