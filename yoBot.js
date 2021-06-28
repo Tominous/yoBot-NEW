@@ -26,6 +26,7 @@ const SetPunishmentsChannel = require("./Commands/SetPunishmentsChannel");
 const GiveawayCommand = require("./Commands/GiveawayCommand");
 const MinecraftCommand = require("./Commands/MinecraftCommand");
 const SkinCommand = require("./Commands/SkinCommand");
+const ZachCommand = require("./Commands/ZachCommand");
 
 bot.once("ready", () => {
     Utils.logMessage("yoBot v2.0 by Yochran is loading...");
@@ -126,6 +127,11 @@ bot.on("message", (msg) => {
                 break;
             case "skin":
                 SkinCommand.Execute(msg, args);
+                break;
+            case "zach":
+            case "badzach":
+            case "senix":
+                ZachCommand.Execute(msg, args);
                 break;
         }
     
